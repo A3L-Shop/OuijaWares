@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import SingleProduct from './SingleProduct'
+import Product from './Product'
 import {fetchProducts} from '../store/allProducts'
 import {connect} from 'react-redux'
 
@@ -13,10 +13,11 @@ class AllProducts extends Component {
     return (
       <div>
         <h1> All Products</h1>
-        {products.length &&
-          products.map(product => (
-            <SingleProduct product={product} key={product.id} />
-          ))}
+        {products.length
+          ? products.map(product => (
+              <Product product={product} key={product.id} />
+            ))
+          : 'No data'}
       </div>
     )
   }
