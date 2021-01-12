@@ -1,0 +1,40 @@
+const Sequelize = require('sequelize')
+const db = require('../db')
+
+const Product = db.define('product', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  description: {
+    type: Sequelize.TEXT,
+    allowNull: false
+  },
+  price: {
+    type: Sequelize.DECIMAL(10, 2),
+    allowNull: false,
+    validate: {
+      min: 0.01
+    }
+  },
+  imageUrl: {
+    type: Sequelize.TEXT,
+    allowNull: false,
+    defaultValue: 'https://art.pixilart.com/3b9d8873b4b4abc.png'
+  },
+  inventoryAmount: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1,
+    allowNull: false,
+    validate: {
+      min: 1
+    }
+  },
+  category: {
+    type: Sequelize.ENUM('ancient', 'victorian', 'modern'),
+    allowNull: false,
+    defaultValue: 'modern'
+  }
+})
+
+module.exports = Product
