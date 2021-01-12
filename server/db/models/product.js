@@ -19,20 +19,17 @@ const Product = db.define('product', {
   },
   imageUrl: {
     type: Sequelize.TEXT,
-    allowNull: false,
     defaultValue: 'https://art.pixilart.com/3b9d8873b4b4abc.png'
   },
   inventoryAmount: {
     type: Sequelize.INTEGER,
     defaultValue: 1,
-    allowNull: false,
     validate: {
       min: 1
     }
   },
   category: {
     type: Sequelize.ENUM('ancient', 'victorian', 'modern'),
-    allowNull: false,
     defaultValue: 'modern'
   }
 })
