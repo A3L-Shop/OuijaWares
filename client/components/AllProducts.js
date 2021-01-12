@@ -1,27 +1,37 @@
 import React, {Component} from 'react'
 import SingleProduct from './SingleProduct'
+import {fetchProducts} from '../store/allProducts'
+import {connect} from 'react-redux'
 
-const dumyProducts = [
-  {
-    id: 1,
-    name: 'ghost',
-    price: 10,
-    description: 'scary',
-    image:
-      'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.bbc.co.uk%2Fcbbc%2Fjoinin%2Fwhat-would-you-do-as-a-ghost&psig=AOvVaw3LN_S8tgKujlElHugCEojw&ust=1610560211591000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOiu2736lu4CFQAAAAAdAAAAABAD'
+class AllProducts extends Component {
+  componentDidMount() {
+    this.props.fetchProducts()
   }
-]
 
-export default class AllProducts extends Component {
   render() {
-    const allProducts = this.props.allProducts || []
+    const products = this.props.products || []
     return (
       <div>
         <h1> All Products</h1>
-        {dumyProducts.map(product => (
-          <SingleProduct product={product} key={product.id} />
-        ))}
+        {products.length &&
+          products.map(product => (
+            <SingleProduct product={product} key={product.id} />
+          ))}
       </div>
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    products: state.allProducts
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchProducts: () => dispatch(fetchProducts())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AllProducts)

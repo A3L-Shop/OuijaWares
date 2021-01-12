@@ -1,0 +1,11 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "ghost",
+      "price": 10,
+      "description": "scary",
+      "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.bbc.co.uk%2Fcbbc%2Fjoinin%2Fwhat-would-you-do-as-a-ghost&psig=AOvVaw3LN_S8tgKujlElHugCEojw&ust=1610560211591000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOiu2736lu4CFQAAAAAdAAAAABAD"
+    }
+  ]
+}
