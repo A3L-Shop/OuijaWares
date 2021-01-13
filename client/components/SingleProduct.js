@@ -6,17 +6,18 @@ class SingleProduct extends Component {
   constructor() {
     super()
   }
-  async componentDidMount() {
-    try {
-      const productId = this.props.match.params.productId
-      await this.props.getSingleProduct(productId)
-    } catch (error) {
-      console.error(error)
-    }
+
+  componentDidMount() {
+    // try {
+    const productId = this.props.match.params.productId
+    this.props.getSingleProduct(productId)
+    // } catch (error) {
+    //   console.error(error)
+    // }
   }
 
   render() {
-    const product = this.props.product
+    const product = this.props.product || {}
     const {
       name,
       description,
@@ -25,6 +26,9 @@ class SingleProduct extends Component {
       inventoryAmount,
       category
     } = product
+    if (!product.id) {
+      return <h1>Loading...</h1>
+    }
     return (
       <div className="single-product">
         <h1>Name: {name} </h1>
