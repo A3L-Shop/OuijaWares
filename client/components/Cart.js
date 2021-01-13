@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 
-class Cart extends Component {
+export class Cart extends Component {
   render() {
     let totalPrice = 0
     return (
