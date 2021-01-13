@@ -44,20 +44,16 @@ const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
-      const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      dispatch(auth(email, password, 'login'))
     }
   }
 }
 
-export default Login = connect(mapLogin, mapDispatch)(LogInForm)
+export default connect(mapLogin, mapDispatch)(LogInForm)
 
-/**
- * PROP TYPES
- */
-LogInForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
+LogInForm.prototypes = {
+  Submit: PropTypes.func.isRequired,
   error: PropTypes.object
 }
