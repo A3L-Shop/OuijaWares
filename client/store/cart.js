@@ -13,7 +13,7 @@ export const addToCart = (product, amount) => {
 }
 
 // thunks
-export const addToUserCart = (user, product, amount) => {
+export const addToUserCart = (product, amount = 1, user) => {
   return async dispatch => {
     try {
       //use route to add products to user's persistent cart in the database
