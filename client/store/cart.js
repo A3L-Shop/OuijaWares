@@ -30,8 +30,17 @@ const initialState = []
 // reducer
 export default function allProductsReducer(state = initialState, action) {
   switch (action.type) {
-    case ADD_TO_CART:
-      return [...state, {product: action.product, amount: action.amount}]
+    case ADD_TO_CART: {
+      const newState = [...state]
+      for (let i = 0; i < newState.length; i++) {
+        if (newState[i].product.id === action.product.id) {
+          newState[i].amount += action.amount
+          return newState
+        }
+      }
+      newState.push({product: action.product, amount: action.amount})
+      return newState
+    }
     default:
       return state
   }
