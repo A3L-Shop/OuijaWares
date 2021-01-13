@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 
 class Cart extends Component {
   render() {
+    let totalPrice = 0
     return (
       <div>
         <h2>Your Cart</h2>
@@ -10,9 +11,10 @@ class Cart extends Component {
           this.props.cartItems.map(item => {
             const product = item.product
             const amount = item.amount
+            totalPrice += product.price * amount
             return (
               <div key={product.id}>
-                <h3>{product.name}</h3>
+                <h4>{product.name}</h4>
                 <h4>{amount}</h4>
               </div>
             )
@@ -20,6 +22,7 @@ class Cart extends Component {
         ) : (
           <h4>Your cart is empty.</h4>
         )}
+        <h3>{`Total Price: $${totalPrice ? totalPrice : '0.00'}`}</h3>
       </div>
     )
   }
