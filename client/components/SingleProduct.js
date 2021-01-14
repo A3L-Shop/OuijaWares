@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/singleProduct'
 
 export class SingleProduct extends Component {
-  constructor() {
-    super()
-  }
+  // constructor() {
+  //   super()
+  // }
   componentDidMount() {
     try {
       const productId = this.props.match.params.productId
@@ -17,6 +17,7 @@ export class SingleProduct extends Component {
 
   render() {
     const product = this.props.product || {}
+    console.log('in singleProduct', product)
     const {
       name,
       description,
@@ -26,15 +27,15 @@ export class SingleProduct extends Component {
       category
     } = product
     if (!product.id) {
-      return <h1>Loading...</h1>
+      return <h2>Loading...</h2>
     }
     return (
       <div className="single-product">
-        <h1>Name: {name} </h1>
-        <h5>Description: {description}</h5>
-        <h5>Price: {price}</h5>
-        <h5>In stock: {inventoryAmount}</h5>
-        <h5> Category: {category}</h5>
+        <h1>Name: {name}</h1>
+        <h5 id="description">Description: {description}</h5>
+        <h5 id="price">Price: {price}</h5>
+        <h5 id="inventoryAmount">In stock: {inventoryAmount}</h5>
+        <h5 id="category"> Category: {category}</h5>
         <img src={imageUrl} />
       </div>
     )

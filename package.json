@@ -22,7 +22,6 @@
     "start-server": "nodemon server -e html,js,scss --ignore public --ignore client",
     "test": "NODE_ENV='test' mocha \"./server/**/*.spec.js\" \"./client/**/*.spec.js\" \"./script/**/*.spec.js\" --require @babel/polyfill --require @babel/register",
     "test-windows": "set NODE_ENV=test&& mocha \"./server/**/*.spec.js\" --require @babel/polyfill --require @babel/register"
-
   },
   "husky": {
     "hooks": {
@@ -92,6 +91,7 @@
     "eslint-plugin-react": "^7.12.4",
     "git-url-parse": "^11.1.2",
     "husky": "^1.3.1",
+    "jsdom": "^16.4.0",
     "lint-staged": "^8.1.5",
     "mocha": "^6.1.4",
     "nodemon": "^1.18.3",
