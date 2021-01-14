@@ -7,11 +7,11 @@ const INCREMENT_AMOUNT = 'INCREMENT_AMOUNT'
 const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
 
 // action creator
-export const addProductToCart = (product, amount) => {
+export const addProductToCart = (product, quantity) => {
   return {
     type: ADD_PRODUCT_TO_CART,
     product,
-    amount
+    quantity
   }
 }
 
@@ -37,11 +37,11 @@ export const deleteProductFromCart = productId => {
 }
 
 // thunks
-export const addToUserCart = (product, amount = 1, user) => {
+export const addToUserCart = (product, quantity = 1, user) => {
   return async dispatch => {
     try {
       //use route to add products to user's persistent cart in the database
-      dispatch(addProductToCart(product, amount))
+      dispatch(addProductToCart(product, quantity))
     } catch (err) {
       console.log('error in addToUserCart thunk\n', err)
     }
@@ -58,11 +58,33 @@ export default function allProductsReducer(state = initialState, action) {
       const newState = [...state]
       for (let i = 0; i < newState.length; i++) {
         if (newState[i].product.id === action.product.id) {
-          newState[i].amount += action.amount
+          newState[i].quantity += action.quantity
           return newState
         }
       }
-      newState.push({product: action.product, amount: action.amount})
+      newState.push({product: action.product, amount: action.quantity})
+      return newState
+    }
+    case DECREMENT_AMOUNT: {
+      const newState = state.map(item => {
+        if (item.product.id === action.productId) {
+          item.quantity++
+        }
+      })
+      return newState
+    }
+    case INCREMENT_AMOUNT: {
+      const newState = state.map(item => {
+        if (item.product.id === action.productId) {
+          item.quantity--
+        }
+      })
+      return newState
+    }
+    case DELETE_PRODUCT_FROM_CART: {
+      const newState = state.filter(
+        item => item.product.id !== action.productId
+      )
       return newState
     }
     default:
