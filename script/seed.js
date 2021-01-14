@@ -40,9 +40,6 @@ const seed = async () => {
         password: '12345'
       })
     ])
-
-    await me.setProducts([picture, dress])
-    await notme.setProducts([sword, mirror, dress])
   } catch (err) {
     console.error(red(err))
   }
