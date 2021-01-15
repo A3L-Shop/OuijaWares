@@ -4,20 +4,20 @@ import Axios from 'axios'
 const ADD_TO_CART = 'ADD_TO_CART'
 
 // action creator
-export const addToCart = (product, amount) => {
+export const addToCart = (product, quantity) => {
   return {
     type: ADD_TO_CART,
     product,
-    amount
+    quantity
   }
 }
 
 // thunks
-export const addToUserCart = (product, amount = 1, user) => {
+export const addToUserCart = (product, quantity = 1, user) => {
   return async dispatch => {
     try {
       //use route to add products to user's persistent cart in the database
-      dispatch(addToCart(product, amount))
+      dispatch(addToCart(product, quantity))
     } catch (err) {
       console.log('error in addToUserCart thunk\n', err)
     }
@@ -34,11 +34,11 @@ export default function allProductsReducer(state = initialState, action) {
       const newState = [...state]
       for (let i = 0; i < newState.length; i++) {
         if (newState[i].product.id === action.product.id) {
-          newState[i].amount += action.amount
+          newState[i].quantity += action.quantity
           return newState
         }
       }
-      newState.push({product: action.product, amount: action.amount})
+      newState.push({product: action.product, quantity: action.quantity})
       return newState
     }
     default:
