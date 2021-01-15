@@ -24,7 +24,7 @@ describe('Product routes', () => {
       })
     })
 
-    it('GET /api/users', async () => {
+    it('GET /api/products', async () => {
       const res = await request(app)
         .get('/api/products')
         .expect(200)
@@ -33,5 +33,16 @@ describe('Product routes', () => {
       expect(res.body[0].name).to.be.equal(name)
       expect(res.body[0].description).to.be.equal(undefined)
     })
-  }) // end describe('/api/users')
+  }) // end describe('/api/products')
+
+  // WIP for PUT, POST, DELETE single items
+  // describe('/api/products/:id', () => {
+  //   beforeEach(() => {
+  //     return db.sync({force: true})
+  //   })
+
+  //   describe('/api/products/:id', () => {
+
+  //   })
+  // }) // end describe('/api/products/:id')
 }) // end describe('User routes')
