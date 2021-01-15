@@ -21,14 +21,15 @@ export class Cart extends Component {
     // }
 
     let totalPrice = 0
+    const items = this.props.cartItems
 
     return (
       <div>
         <h2>Your Cart</h2>
-        {this.props.cartItems.length ? (
-          this.props.cartItems.map(item => {
-            totalPrice += item.product.price * item.quantity
-            return <CartItem item={item} key={item.id} />
+        {items.length ? (
+          Object.keys(items).map(id => {
+            totalPrice += items[id].product.price * items[id].quantity
+            return <CartItem item={items[id]} key={id} />
           })
         ) : (
           <h4>Your cart is empty.</h4>

@@ -32,6 +32,12 @@ export class CartItem extends Component {
           <div key={id}>
             <h4>{name}</h4>
             <h4>{price}</h4>
+            <div className="amount-adjust">
+              <button type="submit" onCha>
+                -
+              </button>
+              <div>{this.state.quantity}</div>
+            </div>
 
             <input
               type="number"
