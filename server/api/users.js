@@ -17,7 +17,9 @@ router.get('/', isAdmin, async (req, res, next) => {
 })
 
 const isYourself = (req, res, next) => {
-  if (req.params.id === req.user.id) {
+  console.log('params', req.params.id)
+  console.log('user', req.user.id)
+  if (+req.params.id === req.user.id) {
     next()
   } else {
     res.send("you don't have access to this user")
