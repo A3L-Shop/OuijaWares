@@ -34,18 +34,17 @@ router.get('/:productId', async (req, res, next) => {
 
 router.post('/', isAdmin, async (req, res, next) => {
   try {
-    const {
-      name,
-      description,
-      price,
-      imageUrl,
-      inventoryAmount,
-      category
-    } = req.body
-    const product = await Product.findOrCreate({
-      where: {name, description, price, imageUrl, inventoryAmount, category}
+    let product = await Product.findOne({
+      where: {
+        name: req.body.name
+      }
     })
-    res.send(product)
+    if (!product.id) {
+      product = await Product.create(req.body)
+      res.send(product)
+    } else {
+      res.send('Product name already exists')
+    }
   } catch (err) {
     next(err)
   }
