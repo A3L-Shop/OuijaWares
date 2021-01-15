@@ -6,9 +6,10 @@ const isLoggedIn = (req, res, next) => (req.user ? next() : res.sendStatus(204))
 
 router.get('/', isLoggedIn, async (req, res, next) => {
   try {
-    const userId = req.user.id
-    const cart = Order.findOne({
-      where: {userId: userId, isActive: true}
+    const userId = req.body.userId
+    const cart = await Order.findOne({
+      where: {userId: userId, isActive: true},
+      include: [Product]
     })
     if (!cart) {
       res.sendStatus(204)
