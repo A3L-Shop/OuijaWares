@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {CartItem} from './CartItem'
 
 export class Cart extends Component {
   constructor() {
@@ -8,39 +9,33 @@ export class Cart extends Component {
       totalPrice: 0
       //product: {productObject}, second key is quantity
     }
-    this.handleChange = this.handleChange.bind(this)
   }
 
-  async handleChange(id) {}
-
   render() {
+    // if (this.props.cartItems.length) {
+    //   this.props.cartItems.forEach(item => {
+    //     this.setState({
+    //       totalPrice: this.state.totalPrice + (item.product.price * item.quantity)
+    //     })
+    // })
+    // }
+
+    let totalPrice = 0
+
     return (
       <div>
         <h2>Your Cart</h2>
         {this.props.cartItems.length ? (
           this.props.cartItems.map(item => {
-            const product = item.product
-            const quantity = item.quantity
-            this.totalPrice += product.price * quantity
-            return (
-              <div key={product.id}>
-                <h4>{product.name}</h4>
-                <input
-                  type="number"
-                  id="quantity"
-                  name="quantity"
-                  min="0"
-                  max="10"
-                  value={quantity}
-                  onChange={() => this.handleChange(product.id)}
-                />
-              </div>
-            )
+            totalPrice += item.product.price * item.quantity
+            return <CartItem item={item} key={item.id} />
           })
         ) : (
           <h4>Your cart is empty.</h4>
         )}
-        <h3>{`Total Price: $${this.totalPrice ? this.totalPrice : '0.00'}`}</h3>
+        <h3>{`Total Price: $${
+          totalPrice ? totalPrice.toFixed(2) : '0.00'
+        }`}</h3>
       </div>
     )
   }
