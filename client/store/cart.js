@@ -37,10 +37,11 @@ export const deleteProductFromCart = productId => {
 }
 
 // thunks
-export const addToUserCart = (product, quantity = 1, user) => {
+export const fetchUserCart = userId => {}
+export const addToUserCart = (product, quantity = 1, userId) => {
   return async dispatch => {
     try {
-      //use route to add products to user's persistent cart in the database
+      await Axios.post()
       dispatch(addProductToCart(product, quantity))
     } catch (err) {
       console.log('error in addToUserCart thunk\n', err)
@@ -49,42 +50,37 @@ export const addToUserCart = (product, quantity = 1, user) => {
 }
 
 // initial state
-const initialState = []
+const initialState = {}
 
 // reducer
 export default function allProductsReducer(state = initialState, action) {
   switch (action.type) {
     case ADD_PRODUCT_TO_CART: {
-      const newState = [...state]
-      for (let i = 0; i < newState.length; i++) {
-        if (newState[i].product.id === action.product.id) {
-          newState[i].quantity += action.quantity
-          return newState
-        }
+      const id = action.product.id
+      const newState = {...state}
+      if (newState[id]) {
+        newState[id].quantity += action.quantity
+        return newState
       }
-      newState.push({product: action.product, amount: action.quantity})
+      newState[id] = {
+        product: action.product,
+        amount: action.quantity
+      }
       return newState
     }
     case DECREMENT_AMOUNT: {
-      const newState = state.map(item => {
-        if (item.product.id === action.productId) {
-          item.quantity++
-        }
-      })
+      const newState = {...state}
+      newState[action.productId].quantity--
       return newState
     }
     case INCREMENT_AMOUNT: {
-      const newState = state.map(item => {
-        if (item.product.id === action.productId) {
-          item.quantity--
-        }
-      })
+      const newState = {...state}
+      newState[action.productId].quantity++
       return newState
     }
     case DELETE_PRODUCT_FROM_CART: {
-      const newState = state.filter(
-        item => item.product.id !== action.productId
-      )
+      const newState = {...state}
+      delete newState[action.productId]
       return newState
     }
     default:
