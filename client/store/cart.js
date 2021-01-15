@@ -1,12 +1,19 @@
 import Axios from 'axios'
 
 // action type
+const POPULATE_CART = 'POPULATE_CART'
 const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
-const DECREMENT_AMOUNT = 'DECREMENT_AMOUNT'
-const INCREMENT_AMOUNT = 'INCREMENT_AMOUNT'
+const UPDATE_AMOUNT = 'UPDATE_AMOUNT'
 const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
 
 // action creator
+const populateCart = products => {
+  return {
+    type: POPULATE_CART,
+    products
+  }
+}
+
 export const addProductToCart = (product, quantity) => {
   return {
     type: ADD_PRODUCT_TO_CART,
@@ -15,17 +22,11 @@ export const addProductToCart = (product, quantity) => {
   }
 }
 
-export const decrementAmount = productId => {
+export const updateAmount = (productId, quantity) => {
   return {
-    type: DECREMENT_AMOUNT,
-    productId
-  }
-}
-
-export const incrementAmount = productId => {
-  return {
-    type: INCREMENT_AMOUNT,
-    productId
+    type: UPDATE_AMOUNT,
+    productId,
+    quantity
   }
 }
 
@@ -37,11 +38,22 @@ export const deleteProductFromCart = productId => {
 }
 
 // thunks
-export const fetchUserCart = userId => {}
+export const fetchUserCart = userId => {
+  return async dispatch => {
+    try {
+      const {data} = await Axios.get('/api/cart', {userId})
+      if (data) {
+        dispatch(populateCart(data.products))
+      }
+    } catch (error) {
+      console.error('error in fetchUserCart thunk\n', error)
+    }
+  }
+}
 export const addToUserCart = (product, quantity = 1, userId) => {
   return async dispatch => {
     try {
-      await Axios.post()
+      await Axios.post('/api/cart', {productId: product.id, quantity, userId})
       dispatch(addProductToCart(product, quantity))
     } catch (err) {
       console.log('error in addToUserCart thunk\n', err)
@@ -55,6 +67,9 @@ const initialState = {}
 // reducer
 export default function allProductsReducer(state = initialState, action) {
   switch (action.type) {
+    // case POPULATE_CART: {
+    //   return newState
+    // }
     case ADD_PRODUCT_TO_CART: {
       const id = action.product.id
       const newState = {...state}
@@ -68,14 +83,9 @@ export default function allProductsReducer(state = initialState, action) {
       }
       return newState
     }
-    case DECREMENT_AMOUNT: {
+    case UPDATE_AMOUNT: {
       const newState = {...state}
-      newState[action.productId].quantity--
-      return newState
-    }
-    case INCREMENT_AMOUNT: {
-      const newState = {...state}
-      newState[action.productId].quantity++
+      newState[action.productId].quantity += action.quantity
       return newState
     }
     case DELETE_PRODUCT_FROM_CART: {
