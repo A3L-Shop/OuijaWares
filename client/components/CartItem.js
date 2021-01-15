@@ -9,7 +9,7 @@ export class CartItem extends Component {
     this.state = {
       quantity: 0
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount() {
@@ -18,36 +18,45 @@ export class CartItem extends Component {
     })
   }
 
-  handleChange(event) {
+  handleClick(num) {
+    let newQuantity = this.state.quantity + num
+    if (newQuantity < 1) {
+      return
+    }
+    if (newQuantity > this.props.item.product.inventoryAmount) {
+      window.alert("Oops! We don't have that many of this item.")
+    }
     this.setState({
-      quantity: event.target.value
+      quantity: newQuantity
     })
+    console.log('hey')
   }
 
   render() {
-    const {id, name, price, inventoryAmount} = this.props.item.product
+    const {id, name, price} = this.props.item.product
     return (
       <div id="cart-item">
         {id ? (
           <div key={id}>
             <h4>{name}</h4>
             <h4>{price}</h4>
-            <div className="amount-adjust">
-              <button type="submit" onCha>
+            <span className="amount-adjust">
+              <button
+                id="minus"
+                type="button"
+                onClick={() => this.handleClick(-1)}
+              >
                 -
               </button>
               <div>{this.state.quantity}</div>
-            </div>
-
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              min="1"
-              max={inventoryAmount}
-              value={this.state.quantity}
-              onChange={this.handleChange}
-            />
+              <button
+                id="plus"
+                type="button"
+                onClick={() => this.handleClick(1)}
+              >
+                +
+              </button>
+            </span>
           </div>
         ) : (
           'Loading...'
