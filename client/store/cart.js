@@ -14,7 +14,7 @@ const populateCart = products => {
   }
 }
 
-export const addProductToCart = (product, quantity) => {
+const addProductToCart = (product, quantity) => {
   return {
     type: ADD_PRODUCT_TO_CART,
     product,
@@ -22,7 +22,7 @@ export const addProductToCart = (product, quantity) => {
   }
 }
 
-export const updateAmount = (productId, quantity) => {
+const updateAmount = (productId, quantity) => {
   return {
     type: UPDATE_AMOUNT,
     productId,
@@ -30,7 +30,7 @@ export const updateAmount = (productId, quantity) => {
   }
 }
 
-export const deleteProductFromCart = productId => {
+const deleteProductFromCart = productId => {
   return {
     type: DELETE_PRODUCT_FROM_CART,
     productId
@@ -50,6 +50,7 @@ export const fetchUserCart = userId => {
     }
   }
 }
+
 export const addToUserCart = (product, quantity = 1, userId) => {
   return async dispatch => {
     try {
@@ -61,15 +62,52 @@ export const addToUserCart = (product, quantity = 1, userId) => {
   }
 }
 
+export const fetchAndUpdateLineItem = (productId, quantity) => {
+  return async dispatch => {
+    try {
+      await Axios.put('/api/cart', {productId, quantity})
+      dispatch(updateAmount(productId, quantity))
+    } catch (error) {
+      console.error('error in fetchAndUpdateLineItem thunk\n', error)
+    }
+  }
+}
+
+export const deleteLineItem = productId => {
+  return async dispatch => {
+    try {
+      await Axios.delete('/api/cart', {productId})
+      dispatch(deleteProductFromCart(productId))
+    } catch (error) {
+      console.error('error in deleteLineItem thunk\n', error)
+    }
+  }
+}
+
 // initial state
 const initialState = {}
 
 // reducer
 export default function allProductsReducer(state = initialState, action) {
   switch (action.type) {
-    // case POPULATE_CART: {
-    //   return newState
-    // }
+    case POPULATE_CART: {
+      const newState = {}
+      action.products.forEach(product => {
+        newState[product.id] = {
+          product: {
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            imageUrl: product.imageUrl,
+            inventoryAmount: product.inventoryAmount,
+            category: product.category
+          },
+          quantity: product['line-item'].quantity
+        }
+      })
+      return newState
+    }
+
     case ADD_PRODUCT_TO_CART: {
       const id = action.product.id
       const newState = {...state}
@@ -83,16 +121,19 @@ export default function allProductsReducer(state = initialState, action) {
       }
       return newState
     }
+
     case UPDATE_AMOUNT: {
       const newState = {...state}
       newState[action.productId].quantity += action.quantity
       return newState
     }
+
     case DELETE_PRODUCT_FROM_CART: {
       const newState = {...state}
       delete newState[action.productId]
       return newState
     }
+
     default:
       return state
   }

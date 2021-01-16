@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {Order, Product, db, LineItem} = require('../db/models')
 module.exports = router
 
-const isLoggedIn = (req, res, next) => (req.user ? next() : res.sendStatus(204))
+const isLoggedIn = (req, res, next) => (req.user ? next() : res.sendStatus(403))
 
 router.get('/', isLoggedIn, async (req, res, next) => {
   try {
