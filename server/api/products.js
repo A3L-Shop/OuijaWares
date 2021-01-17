@@ -1,9 +1,7 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
 module.exports = router
-
-const isAdmin = (req, res, next) =>
-  req.user.isAdmin ? next() : res.send('None shall pass')
+const {isAdmin, isYourself} = require('./securityGate')
 
 router.get('/', async (req, res, next) => {
   try {
