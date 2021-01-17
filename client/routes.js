@@ -9,7 +9,9 @@ import {
   Cart,
   AllProducts,
   SingleProduct,
-  ConfirmCheckout
+  ConfirmCheckout,
+  NotFound,
+  Error500
 } from './components'
 import {me} from './store'
 
@@ -33,6 +35,7 @@ class Routes extends Component {
         <Route path="/cart" component={Cart} />
         <Route path="/products" component={AllProducts} />
         <Route path="/confirm" component={ConfirmCheckout} />
+        <Route path="/500" component={Error500} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -40,7 +43,7 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        <Route component={NotFound} />
       </Switch>
     )
   }
