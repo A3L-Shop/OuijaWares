@@ -46,6 +46,9 @@ router.post('/', isAdmin, async (req, res, next) => {
       res.send('Product name already exists')
     }
   } catch (err) {
+    if (err.name === 'SequelizeUniqueConstraintError') {
+      res.status(401).send('product name is not unique')
+    }
     next(err)
   }
 })
