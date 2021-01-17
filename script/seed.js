@@ -8,22 +8,26 @@ const seed = async () => {
       Product.create({
         name: 'Picture',
         description: 'A haunted picture',
-        price: 10.0
+        price: 10.0,
+        inventoryAmount: 10
       }),
       Product.create({
         name: 'Dress',
         description: 'A haunted dress',
-        price: 10.5
+        price: 10.5,
+        inventoryAmount: 10
       }),
       Product.create({
         name: 'Sword',
         description: 'A haunted sword',
-        price: 16.0
+        price: 16.0,
+        inventoryAmount: 10
       }),
       Product.create({
         name: 'Mirror',
         description: 'A haunted mirror',
-        price: 50.0
+        price: 50.0,
+        inventoryAmount: 10
       })
     ])
 

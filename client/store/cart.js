@@ -22,13 +22,13 @@ const addProductToCart = (product, quantity) => {
   }
 }
 
-const updateAmount = (productId, quantity) => {
-  return {
-    type: UPDATE_AMOUNT,
-    productId,
-    quantity
-  }
-}
+// const updateAmount = (productId, quantity) => {
+//   return {
+//     type: UPDATE_AMOUNT,
+//     productId,
+//     quantity
+//   }
+// }
 
 const deleteProductFromCart = productId => {
   return {
@@ -62,16 +62,16 @@ export const addToUserCart = (product, quantity = 1, userId) => {
   }
 }
 
-export const fetchAndUpdateLineItem = (productId, quantity) => {
-  return async dispatch => {
-    try {
-      await Axios.put('/api/cart', {productId, quantity})
-      dispatch(updateAmount(productId, quantity))
-    } catch (error) {
-      console.error('error in fetchAndUpdateLineItem thunk\n', error)
-    }
-  }
-}
+// export const fetchAndUpdateLineItem = (productId, quantity) => {
+//   return async dispatch => {
+//     try {
+//       await Axios.put('/api/cart', {productId, quantity})
+//       dispatch(updateAmount(productId, quantity))
+//     } catch (error) {
+//       console.error('error in fetchAndUpdateLineItem thunk\n', error)
+//     }
+//   }
+// }
 
 export const deleteLineItem = productId => {
   return async dispatch => {
