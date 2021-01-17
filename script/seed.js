@@ -1,5 +1,5 @@
 const {green, red} = require('chalk')
-const {db, User, Product} = require('../server/db')
+const {db, User, Product, Order, ListItem} = require('../server/db')
 
 const seed = async () => {
   try {
@@ -8,22 +8,26 @@ const seed = async () => {
       Product.create({
         name: 'Picture',
         description: 'A haunted picture',
-        price: 10.0
+        price: 10.0,
+        inventoryAmount: 10
       }),
       Product.create({
         name: 'Dress',
         description: 'A haunted dress',
-        price: 10.5
+        price: 10.5,
+        inventoryAmount: 10
       }),
       Product.create({
         name: 'Sword',
         description: 'A haunted sword',
-        price: 16.0
+        price: 16.0,
+        inventoryAmount: 10
       }),
       Product.create({
         name: 'Mirror',
         description: 'A haunted mirror',
-        price: 50.0
+        price: 50.0,
+        inventoryAmount: 10
       })
     ])
 
@@ -40,6 +44,21 @@ const seed = async () => {
         password: '12345'
       })
     ])
+
+    for (let i = 0; i < 10; i++) {
+      const order = await Order.create({
+        isActive: false
+      })
+      await notme.addOrder(order)
+    }
+    const active = await Order.create({
+      isActive: true
+    })
+    await notme.addOrder(active)
+    await active.addProduct(picture, {through: {quantity: 3}})
+    await active.addProduct(dress)
+    await active.addProduct(sword)
+    await active.addProduct(mirror, {through: {quantity: 2}})
   } catch (err) {
     console.error(red(err))
   }

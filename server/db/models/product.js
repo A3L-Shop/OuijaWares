@@ -29,10 +29,7 @@ const Product = db.define('product', {
       min: 1
     }
   },
-  category: {
-    type: Sequelize.ENUM('ancient', 'victorian', 'modern'),
-    defaultValue: 'modern'
-  }
-})
+  {timestamps: false}
+)
 
 module.exports = Product
