@@ -4,7 +4,8 @@ const db = require('../db')
 const Product = db.define('product', {
   name: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   description: {
     type: Sequelize.TEXT,
@@ -28,10 +29,7 @@ const Product = db.define('product', {
       min: 1
     }
   },
-  category: {
-    type: Sequelize.ENUM('ancient', 'victorian', 'modern'),
-    defaultValue: 'modern'
-  }
-})
+  {timestamps: false}
+)
 
 module.exports = Product

@@ -10,4 +10,6 @@ export {default as SingleProduct} from './SingleProduct'
 export {default as Cart} from './Cart'
 export {default as Login} from './auth/LoginForm'
 export {default as Signup} from './auth/SignUpForm'
-
+export {default as ConfirmCheckout} from './ConfirmCheckout'
+export {default as NotFound} from './error/NotFound'
+export {default as Error500} from './error/Error500'
