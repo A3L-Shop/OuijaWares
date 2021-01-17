@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
 module.exports = router
-const {isAdmin, isYourself} = require('./securityGate')
+const {isAdmin} = require('./securityGate')
 
 router.get('/', async (req, res, next) => {
   try {

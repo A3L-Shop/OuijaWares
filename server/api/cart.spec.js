@@ -1,6 +1,6 @@
 const {expect} = require('chai')
 const request = require('supertest')
-const {db, User, Product, Order, ListItem} = require('../db')
+const {db, User} = require('../db')
 const app = require('../index')
 
 describe('Cart routes', () => {
@@ -11,6 +11,7 @@ describe('Cart routes', () => {
   describe('/api/cart/', () => {
     const codysEmail = 'cody@puppybook.com'
     const codysPassword = 'ugh'
+    const productId = 1
 
     beforeEach(async () => {
       await User.create({

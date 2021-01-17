@@ -3,23 +3,7 @@ import {connect} from 'react-redux'
 import {CartItem} from './CartItem'
 
 export class Cart extends Component {
-  constructor() {
-    super()
-    this.state = {
-      totalPrice: 0
-      //product: {productObject}, second key is quantity
-    }
-  }
-
   render() {
-    // if (this.props.cartItems.length) {
-    //   this.props.cartItems.forEach(item => {
-    //     this.setState({
-    //       totalPrice: this.state.totalPrice + (item.product.price * item.quantity)
-    //     })
-    // })
-    // }
-
     let totalPrice = 0
     const items = this.props.cartItems
 

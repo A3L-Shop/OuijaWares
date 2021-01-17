@@ -32,8 +32,8 @@ class Product extends Component {
 
 const mapDispatch = dispatch => {
   return {
-    addToCart: (productId, amount, user) =>
-      dispatch(addToUserCart(productId, amount, user))
+    addToCart: (product, quantity, user) =>
+      dispatch(addToUserCart(product, quantity, user))
   }
 }
 
