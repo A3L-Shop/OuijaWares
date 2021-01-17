@@ -2,8 +2,9 @@ const router = require('express').Router()
 const {User} = require('../db/models')
 module.exports = router
 
-//delete this if unnecessary one day
-router.get('/', async (req, res, next) => {
+const {isAdmin, isYourself} = require('./securityGate')
+
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
       attributes: ['id', 'email']
@@ -11,5 +12,14 @@ router.get('/', async (req, res, next) => {
     res.json(users)
   } catch (err) {
     next(err)
+  }
+})
+
+router.get('/:id', isYourself, async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    res.send(user)
+  } catch (error) {
+    next(error)
   }
 })
