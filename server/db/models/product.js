@@ -30,6 +30,10 @@ const Product = db.define(
       validate: {
         min: 1
       }
+    },
+    category: {
+      type: Sequelize.ENUM('ancient', 'victorian', 'modern'),
+      defaultValue: 'modern'
     }
   },
   {timestamps: false}
