@@ -12,8 +12,6 @@ const isAdmin = (req, res, next) =>
 // if they aren't redirect them to the home page??? now send message
 
 const isYourself = (req, res, next) => {
-  console.log('params', req.params.id)
-  console.log('user', req.user.id)
   if (+req.params.id === req.user.id) {
     next()
   } else {
