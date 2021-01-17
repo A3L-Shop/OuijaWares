@@ -10,6 +10,7 @@ export class CartItem extends Component {
       quantity: 0
     }
     this.handleClick = this.handleClick.bind(this)
+    this.handleRemove = this.handleRemove.bind(this)
   }
 
   componentDidMount() {
@@ -32,6 +33,13 @@ export class CartItem extends Component {
     console.log('hey')
   }
 
+  handleRemove() {
+    this.setState({
+      quantity: 0
+    })
+    console.log('this item has been removed from your cart')
+  }
+
   render() {
     const {id, name, price} = this.props.item.product
     return (
@@ -39,7 +47,7 @@ export class CartItem extends Component {
         {id ? (
           <div key={id}>
             <h4>{name}</h4>
-            <h4>{price}</h4>
+            <h4>${price}</h4>
             <span className="amount-adjust">
               <button
                 id="minus"
@@ -48,13 +56,16 @@ export class CartItem extends Component {
               >
                 -
               </button>
-              <div>{this.state.quantity}</div>
+              <span>{this.state.quantity}</span>
               <button
                 id="plus"
                 type="button"
                 onClick={() => this.handleClick(1)}
               >
                 +
+              </button>
+              <button id="remove" type="button" onClick={this.handleRemove}>
+                REMOVE
               </button>
             </span>
           </div>
