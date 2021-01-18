@@ -8,7 +8,7 @@ const User = db.define('user', {
     unique: true,
     allowNull: false
   },
-  admin: {
+  isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },

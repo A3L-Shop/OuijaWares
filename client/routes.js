@@ -2,15 +2,27 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, Cart, AllProducts, SingleProduct} from './components'
+import {
+  Login,
+  Signup,
+  UserHome,
+  Cart,
+  AllProducts,
+  SingleProduct,
+  ConfirmCheckout,
+  NotFound,
+  Error500,
+  GuestCheckout
+} from './components'
 import {me} from './store'
+import {fetchUserCart} from './store/cart'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData()
+  async componentDidMount() {
+    await this.props.loadInitialData()
   }
 
   render() {
@@ -24,6 +36,10 @@ class Routes extends Component {
         <Route path="/products/:productId" component={SingleProduct} />
         <Route path="/cart" component={Cart} />
         <Route path="/products" component={AllProducts} />
+        <Route path="/confirm" component={ConfirmCheckout} />
+        <Route path="/checkout" component={GuestCheckout} />
+        <Route path="/" component={AllProducts} />
+        <Route path="/500" component={Error500} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -31,7 +47,7 @@ class Routes extends Component {
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        <Route component={NotFound} />
       </Switch>
     )
   }
@@ -52,7 +68,8 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-    }
+    },
+    fetchUserCart: user => dispatch(fetchUserCart(user))
   }
 }
 

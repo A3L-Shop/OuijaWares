@@ -3,16 +3,16 @@ import Product from './Product'
 import {fetchProducts} from '../store/allProducts'
 import {connect} from 'react-redux'
 
-class AllProducts extends Component {
-  componentDidMount() {
-    this.props.fetchProducts()
+export class AllProducts extends Component {
+  async componentDidMount() {
+    await this.props.fetchProducts()
   }
 
   render() {
     const products = this.props.products || []
     return (
       <div>
-        <h1> All Products</h1>
+        <h1>All Products</h1>
         {products.length
           ? products.map(product => (
               <Product product={product} key={product.id} />
@@ -25,7 +25,8 @@ class AllProducts extends Component {
 
 const mapStateToProps = state => {
   return {
-    products: state.allProducts
+    products: state.allProducts,
+    user: state.user
   }
 }
 

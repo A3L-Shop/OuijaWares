@@ -6,6 +6,7 @@ const LineItem = db.define(
   {
     quantity: {
       type: Sequelize.INTEGER,
+      defaultValue: 1,
       validate: {
         min: 1
       }
