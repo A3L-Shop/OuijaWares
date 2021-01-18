@@ -6,7 +6,6 @@ const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
 const UPDATE_AMOUNT = 'UPDATE_AMOUNT'
 const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
 const CLEAR_CART = 'CLEAR_CART'
-//const CHECKOUT
 
 // action creator
 const populateCart = products => {
@@ -108,6 +107,28 @@ export const deleteLineItem = (productId, user = {}) => {
       dispatch(deleteProductFromCart(productId))
     } catch (error) {
       console.error('error in deleteLineItem thunk\n', error)
+    }
+  }
+}
+
+export const checkout = userId => {
+  return async dispatch => {
+    try {
+      Axios.put('/api/cart/checkout', {userId})
+      dispatch(clearCart())
+    } catch (error) {
+      console.error('error in checkout thunk\n', error)
+    }
+  }
+}
+
+export const guestCheckout = items => {
+  return async dispatch => {
+    try {
+      Axios.put('/api/cart/checkout', {items})
+      dispatch(clearCart())
+    } catch (error) {
+      console.error('error in guestCheckout thunk\n', error)
     }
   }
 }
