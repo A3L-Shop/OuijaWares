@@ -28,10 +28,11 @@ describe('SignUpForm', () => {
     signupForm = shallow(<SignupForm />)
   })
 
-  it('gives warning when password matches', () => {
+  it('gives no warning when password matches', () => {
     expect(signupForm.find('div.warning')).to.have.length(0)
 
-    // I want to simulate filling out the form but not working yet
+    // I want to simulate filling out the form
+    // and click sign up but doesn't seem to be working yet
     // simulate filling in email
     // signupForm
     //   .find('input')
