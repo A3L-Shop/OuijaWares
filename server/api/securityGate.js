@@ -22,5 +22,6 @@ const isYourself = (req, res, next) => {
 
 module.exports = {
   isAdmin,
-  isYourself
+  isYourself,
+  isLoggedIn
 }
