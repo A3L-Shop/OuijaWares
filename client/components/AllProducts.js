@@ -2,9 +2,8 @@ import React, {Component} from 'react'
 import Product from './Product'
 import {fetchProducts} from '../store/allProducts'
 import {connect} from 'react-redux'
-import {fetchUserCart} from '../store/cart'
 
-class AllProducts extends Component {
+export class AllProducts extends Component {
   async componentDidMount() {
     await this.props.fetchProducts()
   }
@@ -13,7 +12,7 @@ class AllProducts extends Component {
     const products = this.props.products || []
     return (
       <div>
-        <h1> All Products</h1>
+        <h1>All Products</h1>
         {products.length
           ? products.map(product => (
               <Product product={product} key={product.id} />
