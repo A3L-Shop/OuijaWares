@@ -122,6 +122,17 @@ export const checkout = userId => {
   }
 }
 
+export const guestCheckout = items => {
+  return async dispatch => {
+    try {
+      Axios.put('/api/cart/checkout', {items})
+      dispatch(clearCart())
+    } catch (error) {
+      console.error('error in guestCheckout thunk\n', error)
+    }
+  }
+}
+
 // initial state
 const initialState = {}
 

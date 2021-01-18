@@ -79,7 +79,23 @@ router.put('/checkout', isLoggedIn, async (req, res, next) => {
     })
     order.isActive = false
     order.save()
-    res.sendStatus(204)
+    res.sendStatus(200)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/guestcheckout', async (req, res, next) => {
+  try {
+    const {items} = req.body
+    const order = await Order.create({
+      where: {isActive: false}
+    })
+    items.forEach(item => {
+      order.addProduct(item.product.id, {through: {quantity: item.quantity}})
+    })
+    order.save()
+    res.sendStatus(200)
   } catch (error) {
     next(error)
   }

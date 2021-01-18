@@ -22,7 +22,6 @@ import {fetchUserCart} from './store/cart'
 class Routes extends Component {
   async componentDidMount() {
     await this.props.loadInitialData()
-    await this.props.fetchUserCart(this.props.user)
   }
 
   render() {
@@ -59,8 +58,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
-    user: state.user
+    isLoggedIn: !!state.user.id
   }
 }
 
