@@ -1,5 +1,11 @@
 // route middleware to make sure a user is logged in
-const isLoggedIn = (req, res, next) => (req.user ? next() : res.sendStatus(403))
+const isLoggedIn = (req, res, next) => {
+  if (req.user && req.user.id === req.body.userId) {
+    next()
+  } else {
+    res.sendStatus(403)
+  }
+}
 
 // route middleware to make sure a logged in user is admin
 // if user is authenticated in the session, carry on
