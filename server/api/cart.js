@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const {Order, Product} = require('../db')
-const {isYourself} = require('./securityGate')
+const {isLoggedIn} = require('./securityGate')
 module.exports = router
 
-router.get('/', isYourself, async (req, res, next) => {
+router.get('/', isLoggedIn, async (req, res, next) => {
   try {
     const userId = req.user.id
     const cart = await Order.findOne({
@@ -20,7 +20,7 @@ router.get('/', isYourself, async (req, res, next) => {
   }
 })
 
-router.post('/', isYourself, async (req, res, next) => {
+router.post('/', isLoggedIn, async (req, res, next) => {
   try {
     const userId = req.user.id
     const {productId, quantity} = req.body
@@ -54,7 +54,7 @@ router.post('/', isYourself, async (req, res, next) => {
 //   }
 // })
 
-router.delete('/', isYourself, async (req, res, next) => {
+router.delete('/', isLoggedIn, async (req, res, next) => {
   try {
     const userId = req.user.id
     const {productId} = req.body
