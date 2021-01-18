@@ -5,6 +5,8 @@ const POPULATE_CART = 'POPULATE_CART'
 const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
 const UPDATE_AMOUNT = 'UPDATE_AMOUNT'
 const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
+const CLEAR_CART = 'CLEAR_CART'
+//const CHECKOUT
 
 // action creator
 const populateCart = products => {
@@ -34,6 +36,12 @@ const deleteProductFromCart = productId => {
   return {
     type: DELETE_PRODUCT_FROM_CART,
     productId
+  }
+}
+
+export const clearCart = () => {
+  return {
+    type: CLEAR_CART
   }
 }
 
@@ -149,6 +157,9 @@ export default function allProductsReducer(state = initialState, action) {
       delete newState[action.productId]
       return newState
     }
+
+    case CLEAR_CART:
+      return initialState
 
     default:
       return state
