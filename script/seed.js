@@ -31,7 +31,7 @@ const seed = async () => {
       })
     ])
 
-    const [notme] = await Promise.all([
+    const [me, notme] = await Promise.all([
       User.create({
         email: 'me@email.com',
         isAdmin: true,
