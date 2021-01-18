@@ -1,8 +1,7 @@
 const router = require('express').Router()
 const {Order, Product} = require('../db')
+const {isLoggedIn} = require('./securityGate')
 module.exports = router
-
-const isLoggedIn = (req, res, next) => (req.user ? next() : res.sendStatus(403))
 
 router.get('/', isLoggedIn, async (req, res, next) => {
   try {
@@ -64,7 +63,38 @@ router.delete('/', isLoggedIn, async (req, res, next) => {
     })
     const product = await Product.findByPk(productId)
     await order.removeProduct(product)
+    order.save()
     res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/checkout', isLoggedIn, async (req, res, next) => {
+  try {
+    const userId = req.user.id
+    const order = await Order.findOne({
+      where: {userId: userId, isActive: true}
+    })
+    order.isActive = false
+    order.save()
+    res.sendStatus(200)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/guestcheckout', async (req, res, next) => {
+  try {
+    const {items} = req.body
+    const order = await Order.create({
+      where: {isActive: false}
+    })
+    items.forEach(item => {
+      order.addProduct(item.product.id, {through: {quantity: item.quantity}})
+    })
+    order.save()
+    res.sendStatus(200)
   } catch (error) {
     next(error)
   }

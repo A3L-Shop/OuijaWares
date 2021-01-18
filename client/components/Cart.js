@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {CartItem} from './CartItem'
+import CartItem from './CartItem'
 
 export class Cart extends Component {
   render() {
@@ -10,7 +10,7 @@ export class Cart extends Component {
     return (
       <div>
         <h2>Your Cart</h2>
-        {items.length ? (
+        {Object.keys(items).length ? (
           Object.keys(items).map(id => {
             totalPrice += items[id].product.price * items[id].quantity
             return <CartItem item={items[id]} key={id} />

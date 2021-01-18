@@ -15,13 +15,14 @@ import {
   Checkout
 } from './components'
 import {me} from './store'
+import {fetchUserCart} from './store/cart'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData()
+  async componentDidMount() {
+    await this.props.loadInitialData()
   }
 
   render() {
@@ -36,12 +37,8 @@ class Routes extends Component {
         <Route path="/cart" component={Cart} />
         <Route path="/products" component={AllProducts} />
         <Route path="/confirm" component={ConfirmCheckout} />
-        <Route
-          path="/checkout"
-          render={defaultProps => (
-            <Checkout isLoggedIn={isLoggedIn} {...defaultProps} />
-          )}
-        />
+        <Route path="/checkout" component={Checkout} />
+        <Route path="/" component={AllProducts} />
         <Route path="/500" component={Error500} />
         {isLoggedIn && (
           <Switch>
@@ -71,7 +68,8 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-    }
+    },
+    fetchUserCart: user => dispatch(fetchUserCart(user))
   }
 }
 
