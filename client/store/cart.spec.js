@@ -33,7 +33,7 @@ describe('thunk creators', () => {
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('ADD_PRODUCT_TO_CART')
       expect(actions[0].product).to.be.deep.equal(fakeProduct)
-      expect(actions[0].amount).to.be.deep.equal(2)
+      expect(actions[0].quantity).to.be.deep.equal(2)
     })
   })
 })
