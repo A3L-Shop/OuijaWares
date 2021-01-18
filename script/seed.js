@@ -1,5 +1,5 @@
 const {green, red} = require('chalk')
-const {db, User, Product, Order, ListItem} = require('../server/db')
+const {db, User, Product, Order} = require('../server/db')
 
 const seed = async () => {
   try {
@@ -31,7 +31,7 @@ const seed = async () => {
       })
     ])
 
-    const [me, notme, test] = await Promise.all([
+    const [me, notme] = await Promise.all([
       User.create({
         email: 'me@email.com',
         isAdmin: true,
