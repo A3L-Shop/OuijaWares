@@ -114,7 +114,7 @@ export const deleteLineItem = (productId, user = {}) => {
 export const checkout = userId => {
   return async dispatch => {
     try {
-      Axios.put('/api/cart/checkout', {userId})
+      await Axios.put('/api/cart/checkout', {userId})
       dispatch(clearCart())
     } catch (error) {
       console.error('error in checkout thunk\n', error)
@@ -125,7 +125,7 @@ export const checkout = userId => {
 export const guestCheckout = items => {
   return async dispatch => {
     try {
-      Axios.put('/api/cart/checkout', {items})
+      await Axios.post('/api/cart/guestcheckout', {items})
       dispatch(clearCart())
     } catch (error) {
       console.error('error in guestCheckout thunk\n', error)
