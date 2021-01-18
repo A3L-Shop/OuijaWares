@@ -9,7 +9,7 @@ import {AllProducts} from './AllProducts'
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-describe.only('AllProducts', () => {
+describe('AllProducts', () => {
   let wrapper
 
   beforeEach(() => {
