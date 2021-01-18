@@ -24,13 +24,13 @@ describe('Cart routes', () => {
       })
     })
 
-    it('GET /api/cart', async () => {
+    it('GET /api/cart sends 403 if not logged in', async () => {
       const res = await request(app)
         .get('/api/cart')
-        .expect(200)
+        .expect(403)
 
-      expect(res.body).to.be.an('array')
-      expect(res.body[0].id).to.be.equal(productId)
+      // expect(res.body).to.be.an('array')
+      // expect(res.body[0].id).to.be.equal(productId)
     })
   }) // end describe('/api/cart')
 }) // end describe('Cart routes')
