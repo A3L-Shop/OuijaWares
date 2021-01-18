@@ -6,9 +6,9 @@ export class GuestCheckout extends Component {
     console.log(this.props.isLoggedIn)
     return (
       <div>
-        <div>Checkout as guest</div>
+        <div className="guest">Checkout as guest</div>
         <GuestCheckoutForm history={this.props.history} />
-        <div>Returning customers</div>
+        <div className="returning">Returning customers</div>
         <Login />
       </div>
     )

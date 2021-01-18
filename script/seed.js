@@ -116,7 +116,6 @@ const seed = async () => {
         password: '12345'
       })
     ])
-
     await User.create({
       email: 'admin@email.com',
       isAdmin: true,
