@@ -25,10 +25,14 @@ https://ouijawares.herokuapp.com/
 
 - run `npm install` in your terminal
 
+- `createdb grace-shopper grace-shopper-test`
+
 - run `npm run seed` to populate the database
 
-- run `npm run build-client-watch` to generate your bundle
+- mac/linux: `npm run start-dev`
 
-- run `npm start` to see the app on localhost:8080
+- windows: run `npm run build-client-watch` to generate your bundle, then run `npm start`
+
+- see the app on localhost:8080 :3
 
 ## Happy shopping!
