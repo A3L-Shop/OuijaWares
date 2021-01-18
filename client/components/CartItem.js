@@ -41,7 +41,7 @@ export class CartItem extends Component {
   }
 
   async handleRemove(productId) {
-    await this.props.deleteFromCart(productId, this.props.user.id)
+    await this.props.deleteFromCart(productId, this.props.user)
     console.log('this item has been removed from your cart')
   }
 
@@ -95,8 +95,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    deleteFromCart: (productId, userId) =>
-      dispatch(deleteLineItem(productId, userId)),
+    deleteFromCart: (productId, user) =>
+      dispatch(deleteLineItem(productId, user)),
     updateAmountInCart: (productId, newQuantity, user) =>
       dispatch(updateLineItem(productId, newQuantity, user))
   }

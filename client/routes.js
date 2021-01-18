@@ -14,13 +14,15 @@ import {
   Error500
 } from './components'
 import {me} from './store'
+import {fetchUserCart} from './store/cart'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData()
+  async componentDidMount() {
+    await this.props.loadInitialData()
+    await this.props.fetchUserCart(this.props.user)
   }
 
   render() {
@@ -57,7 +59,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    user: state.user
   }
 }
 
@@ -65,7 +68,8 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-    }
+    },
+    fetchUserCart: user => dispatch(fetchUserCart(user))
   }
 }
 

@@ -89,7 +89,13 @@ export const deleteLineItem = (productId, user = {}) => {
   return async dispatch => {
     try {
       if (user.id) {
-        await Axios.delete('/api/cart', {productId, userId: user.id})
+        console.log(productId)
+        await Axios.delete('/api/cart', {
+          data: {
+            productId,
+            userId: user.id
+          }
+        })
       }
       dispatch(deleteProductFromCart(productId))
     } catch (error) {
