@@ -2,9 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {deleteLineItem, updateLineItem} from '../store/cart'
 
-//find a way to not let anyone type into quantity input field
-//find a way to only add as much as inventory allows into cart in Product component
-
 export class CartItem extends Component {
   constructor() {
     super()
@@ -22,8 +19,6 @@ export class CartItem extends Component {
   }
 
   async handleClick(num, productId) {
-    // let newQuantity = this.state.quantity + num
-    // console.log(newQuantity)
     const newQuantity = this.state.quantity + num
     if (newQuantity < 1) {
       return
@@ -36,8 +31,6 @@ export class CartItem extends Component {
     this.setState({
       quantity: newQuantity
     })
-
-    console.log('hey')
   }
 
   async handleRemove(productId) {
