@@ -70,3 +70,17 @@ router.delete('/', isLoggedIn, async (req, res, next) => {
     next(error)
   }
 })
+
+router.put('/checkout', isLoggedIn, async (req, res, next) => {
+  try {
+    const userId = req.user.id
+    const order = await Order.findOne({
+      where: {userId: userId, isActive: true}
+    })
+    order.isActive = false
+    order.save()
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
