@@ -63,6 +63,7 @@ router.delete('/', isLoggedIn, async (req, res, next) => {
     })
     const product = await Product.findByPk(productId)
     await order.removeProduct(product)
+    order.save()
     res.sendStatus(204)
   } catch (error) {
     next(error)

@@ -5,6 +5,8 @@ const POPULATE_CART = 'POPULATE_CART'
 const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
 const UPDATE_AMOUNT = 'UPDATE_AMOUNT'
 const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
+const CLEAR_CART = 'CLEAR_CART'
+//const CHECKOUT
 
 // action creator
 const populateCart = products => {
@@ -37,12 +39,18 @@ const deleteProductFromCart = productId => {
   }
 }
 
+export const clearCart = () => {
+  return {
+    type: CLEAR_CART
+  }
+}
+
 // thunks
-export const fetchUserCart = userId => {
+export const fetchUserCart = (user = {}) => {
   return async dispatch => {
     try {
-      if (userId) {
-        const {data} = await Axios.get('/api/cart', {userId})
+      if (user.id) {
+        const {data} = await Axios.get('/api/cart', {userId: user.id})
         dispatch(populateCart(data.products))
       }
     } catch (error) {
@@ -51,13 +59,13 @@ export const fetchUserCart = userId => {
   }
 }
 
-export const addToUserCart = (product, quantity = 1, userId) => {
+export const addToUserCart = (product, quantity = 1, user = {}) => {
   return async dispatch => {
     try {
-      if (userId) {
+      if (user.id) {
         await Axios.post('/api/cart', {
           productId: product.id,
-          userId,
+          userId: user.id,
           quantity
         })
       }
@@ -68,13 +76,13 @@ export const addToUserCart = (product, quantity = 1, userId) => {
   }
 }
 
-export const updateLineItem = (productId, newQuantity, userId) => {
+export const updateLineItem = (productId, newQuantity, user = {}) => {
   return async dispatch => {
     try {
-      if (userId) {
+      if (user.id) {
         await Axios.post('/api/cart', {
           productId,
-          userId,
+          userId: user.id,
           quantity: newQuantity
         })
       }
@@ -85,11 +93,17 @@ export const updateLineItem = (productId, newQuantity, userId) => {
   }
 }
 
-export const deleteLineItem = (productId, userId) => {
+export const deleteLineItem = (productId, user = {}) => {
   return async dispatch => {
     try {
-      if (userId) {
-        await Axios.delete('/api/cart', {productId, userId})
+      if (user.id) {
+        console.log(productId)
+        await Axios.delete('/api/cart', {
+          data: {
+            productId,
+            userId: user.id
+          }
+        })
       }
       dispatch(deleteProductFromCart(productId))
     } catch (error) {
@@ -125,13 +139,9 @@ export default function allProductsReducer(state = initialState, action) {
     case ADD_PRODUCT_TO_CART: {
       const id = action.product.id
       const newState = {...state}
-      // if (newState[id]) {
-      //   newState[id].quantity += action.quantity
-      //   return newState
-      // }
       newState[id] = {
         product: action.product,
-        amount: action.quantity
+        quantity: action.quantity
       }
       return newState
     }
@@ -147,6 +157,9 @@ export default function allProductsReducer(state = initialState, action) {
       delete newState[action.productId]
       return newState
     }
+
+    case CLEAR_CART:
+      return initialState
 
     default:
       return state
