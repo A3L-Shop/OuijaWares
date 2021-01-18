@@ -22,19 +22,17 @@ export class CartItem extends Component {
   }
 
   async handleClick(num, productId) {
-    let newQuantity = this.state.quantity + num
+    // let newQuantity = this.state.quantity + num
+    // console.log(newQuantity)
+    const newQuantity = this.state.quantity + num
     if (newQuantity < 1) {
       return
     }
     if (newQuantity > this.props.item.product.inventoryAmount) {
-      window.alert("Oops! We don't have that many of this item.")
+      console.log('not enough inventory')
       return
     }
-    await this.props.updateAmountInCart(
-      productId,
-      newQuantity,
-      this.props.user.id
-    )
+    await this.props.updateAmountInCart(productId, newQuantity, this.props.user)
     this.setState({
       quantity: newQuantity
     })
@@ -90,7 +88,8 @@ export class CartItem extends Component {
 
 const mapState = state => {
   return {
-    user: state.user
+    user: state.user,
+    cart: state.cart
   }
 }
 
@@ -98,8 +97,8 @@ const mapDispatch = dispatch => {
   return {
     deleteFromCart: (productId, userId) =>
       dispatch(deleteLineItem(productId, userId)),
-    updateAmountInCart: (productId, newQuantity, userId) =>
-      dispatch(updateLineItem(productId, newQuantity, userId))
+    updateAmountInCart: (productId, newQuantity, user) =>
+      dispatch(updateLineItem(productId, newQuantity, user))
   }
 }
 
