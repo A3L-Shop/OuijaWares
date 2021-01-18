@@ -1,4 +1,6 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {guestCheckout} from '../store/cart'
 
 export class GuestCheckout extends Component {
   constructor() {
@@ -14,9 +16,12 @@ export class GuestCheckout extends Component {
     this.setState({[evt.target.name]: evt.target.value})
   }
 
-  handleSubmit(evt) {
+  async handleSubmit(evt) {
     evt.preventDefault()
-    console.log(this.state.email)
+    if (this.state.email.length) {
+      console.log(this.state.email)
+      await this.props.guestCheckout(this.props.cart)
+    }
   }
 
   render() {
@@ -36,4 +41,16 @@ export class GuestCheckout extends Component {
   }
 }
 
-export default GuestCheckout
+const mapDispatch = dispatch => {
+  return {
+    guestCheckout: id => dispatch(guestCheckout(id))
+  }
+}
+
+const mapState = state => {
+  return {
+    cart: state.cart
+  }
+}
+
+export default connect(mapState, mapDispatch)(GuestCheckout)

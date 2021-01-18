@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Login, GuestCheckout} from './index'
 
-export class Checkout extends Component {
+export class NoUserCheckout extends Component {
   render() {
     console.log(this.props.isLoggedIn)
     return (
@@ -15,4 +15,4 @@ export class Checkout extends Component {
   }
 }
 
-export default Checkout
+export default NoUserCheckout

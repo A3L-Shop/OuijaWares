@@ -87,11 +87,9 @@ router.put('/checkout', isLoggedIn, async (req, res, next) => {
 router.post('/guestcheckout', async (req, res, next) => {
   try {
     const {items} = req.body
-    const order = await Order.create({
-      where: {isActive: false}
-    })
-    items.forEach(item => {
-      order.addProduct(item.product.id, {through: {quantity: item.quantity}})
+    const order = await Order.create({isActive: false})
+    Object.keys(items).forEach(key => {
+      order.addProduct(key, {through: {quantity: items[key].quantity}})
     })
     order.save()
     res.sendStatus(200)
