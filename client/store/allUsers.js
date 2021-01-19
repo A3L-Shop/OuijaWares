@@ -49,9 +49,16 @@ export default function allUsersReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_USERS:
       return action.users
-    case TOGGLE_ADMIN_STATUS:
-      // needs work
-      return state
+    case TOGGLE_ADMIN_STATUS: {
+      const newState = state.map(user => {
+        const newUser = {...user}
+        if (user.id === action.userId) {
+          newUser.isAdmin = !user.isAdmin
+        }
+        return newUser
+      })
+      return newState
+    }
     default:
       return state
   }
