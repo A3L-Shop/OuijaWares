@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchSingleProduct} from '../store/singleProduct'
+import {fetchSingleProduct, clearProduct} from '../store/singleProduct'
 import {addToUserCart, updateLineItem} from '../store/cart'
 
 export class SingleProduct extends Component {
@@ -15,6 +15,10 @@ export class SingleProduct extends Component {
     } catch (error) {
       console.error(error)
     }
+  }
+
+  async componentWillUnmount() {
+    await this.props.clearProduct()
   }
 
   async handleClick(product) {
@@ -81,7 +85,8 @@ const mapDispatchToProps = dispatch => {
     addToCart: (product, quantity, user) =>
       dispatch(addToUserCart(product, quantity, user)),
     updateAmount: (productId, newQuantity, user) =>
-      dispatch(updateLineItem(productId, newQuantity, user))
+      dispatch(updateLineItem(productId, newQuantity, user)),
+    clearProductChoice: () => dispatch(clearProduct())
   }
 }
 
