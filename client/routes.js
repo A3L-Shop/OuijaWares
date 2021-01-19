@@ -12,7 +12,8 @@ import {
   ConfirmCheckout,
   NotFound,
   Error500,
-  GuestCheckout
+  GuestCheckout,
+  AdminView
 } from './components'
 import {me} from './store'
 import {fetchUserCart} from './store/cart'
@@ -39,6 +40,7 @@ class Routes extends Component {
         <Route path="/confirm" component={ConfirmCheckout} />
         <Route path="/checkout" component={GuestCheckout} />
         <Route path="/" component={AllProducts} />
+        <Route path="/admin" component={AdminView} />
         <Route path="/500" component={Error500} />
         {isLoggedIn && (
           <Switch>
