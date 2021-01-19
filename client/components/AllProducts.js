@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Product from './Product'
 import {fetchProducts} from '../store/allProducts'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 export class AllProducts extends Component {
   async componentDidMount() {
@@ -12,12 +13,14 @@ export class AllProducts extends Component {
     const products = this.props.products || []
     return (
       <div>
-        <h1>All Products</h1>
-        {products.length
-          ? products.map(product => (
-              <Product product={product} key={product.id} />
-            ))
-          : 'No data'}
+        <h2>A L L // P R O D U C T S</h2>
+        <div id="products-container">
+          {products.length
+            ? products.map(product => (
+                <Product product={product} key={product.id} />
+              ))
+            : 'No data'}
+        </div>
       </div>
     )
   }

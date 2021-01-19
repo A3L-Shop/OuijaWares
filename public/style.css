@@ -1,3 +1,8 @@
+* {
+  background-color: black;
+  color: white;
+}
+
 body {
   font-family: sans-serif;
 }
@@ -10,9 +15,20 @@ label {
   display: block;
 }
 
+nav {
+  align-items: center;
+  justify-content: space-between;
+  border: white dotted;
+  color: white;
+  display: flex;
+  height: 60px;
+  padding: 10px;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
+  border: white dotted;
 }
 
 form div {
@@ -27,5 +43,29 @@ img {
 
 button {
   margin: 1em;
-  background-color: lightpink;
+  background-color: blue;
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1em;
+}
+
+#products-container {
+  display: flex;
+  border: pink dotted;
+  flex-wrap: wrap;
+}
+
+.product {
+  border: blue dotted;
+  display: flex;
+  justify-content: space-around;
+  align-items: space-around;
+  min-height: 250px;
+  min-width: 250px;
+  margin: 1em;
+  padding: 0.5em;
 }

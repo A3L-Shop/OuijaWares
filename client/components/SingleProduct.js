@@ -55,7 +55,7 @@ export class SingleProduct extends Component {
       <div className="single-product">
         <h1>Name: {name}</h1>
         <h5 id="description">Description: {description}</h5>
-        <h5 id="price">Price: {price}</h5>
+        <h5 id="price">Price: ${price}</h5>
         <h5 id="inventoryAmount">In stock: {inventoryAmount}</h5>
         <h5 id="category"> Category: {category}</h5>
         <img src={imageUrl} />
