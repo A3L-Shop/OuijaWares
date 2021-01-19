@@ -20,23 +20,22 @@ export const clearError = () => {
 
 export const modifyError = (error, customMessage) => {
   return dispatch => {
-    const message = error.message.split(' ')
-    const errorStatus = message[message.length - 1]
     const err = new Error()
-    switch (errorStatus) {
-      case '500':
+    switch (error.message) {
+      case 'Network Error':
+        err.status = '500'
         err.message = 'Something went wrong on our end. Please try again later.'
         break
-      case '404':
-        err.message = customMessage || error.message
-        break
-      case '403':
-        err.message = customMessage || error.message
-        break
+      // case '404':
+      //   err.message = customMessage || error.message
+      //   break
+      // case '403':
+      //   err.message = customMessage || error.message
+      //   break
       default:
         err.message = error.message
     }
-    err.status = errorStatus
+    console.log(err)
     dispatch(setError(err))
   }
 }

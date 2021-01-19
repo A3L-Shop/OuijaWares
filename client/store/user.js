@@ -1,6 +1,7 @@
 import axios from 'axios'
 import history from '../history'
 import {fetchUserCart, clearCart} from './cart'
+import {modifyError} from './error'
 
 /**
  * ACTION TYPES
@@ -29,8 +30,8 @@ export const me = () => async dispatch => {
     if (data.id) {
       dispatch(fetchUserCart(data))
     }
-  } catch (err) {
-    console.error(err)
+  } catch (error) {
+    dispatch(modifyError(error))
   }
 }
 
@@ -38,16 +39,16 @@ export const auth = (email, password, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
-    dispatch(fetchUserCart(res.data))
   } catch (authErr) {
     return dispatch(getUser({error: authErr}))
   }
 
   try {
     dispatch(getUser(res.data))
+    dispatch(fetchUserCart(res.data))
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
-    console.error(dispatchOrHistoryErr)
+    dispatch(modifyError(dispatchOrHistoryErr))
   }
 }
 
@@ -57,8 +58,8 @@ export const logout = () => async dispatch => {
     dispatch(removeUser())
     dispatch(clearCart())
     history.push('/login')
-  } catch (err) {
-    console.error(err)
+  } catch (error) {
+    dispatch(modifyError(error))
   }
 }
 

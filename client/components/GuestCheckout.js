@@ -3,7 +3,6 @@ import {Login, GuestCheckoutForm} from './index'
 
 export class GuestCheckout extends Component {
   render() {
-    console.log(this.props.isLoggedIn)
     return (
       <div>
         <div className="guest">Checkout as guest</div>

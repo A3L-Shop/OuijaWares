@@ -26,8 +26,6 @@ class Product extends Component {
       } else {
         await this.props.addToCart(product, newQuantity, this.props.user)
       }
-    } else {
-      console.log('not enough inventory')
     }
   }
 
