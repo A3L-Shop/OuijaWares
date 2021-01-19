@@ -1,11 +1,13 @@
 import React from 'react'
 
-const User = ({email, isAdmin}) => {
+const User = ({id, email, name, isAdmin}) => {
+  console.log(id, email, name, isAdmin)
   return (
     <tr>
+      <td>{id}</td>
       <td>{email}</td>
-      <td>{isAdmin}</td>
-      <td>toggle?</td>
+      <td>{name}</td>
+      <td>{isAdmin ? 'true' : 'false'}</td>
     </tr>
   )
 }

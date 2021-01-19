@@ -7,7 +7,7 @@ const {isAdmin, isYourself} = require('./securityGate')
 router.get('/', isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'email']
+      attributes: ['id', 'email', 'name', 'isAdmin']
     })
     res.json(users)
   } catch (err) {

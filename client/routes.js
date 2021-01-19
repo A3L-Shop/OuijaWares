@@ -39,8 +39,8 @@ class Routes extends Component {
         <Route path="/products" component={AllProducts} />
         <Route path="/confirm" component={ConfirmCheckout} />
         <Route path="/checkout" component={GuestCheckout} />
-        <Route path="/" component={AllProducts} />
         <Route path="/admin" component={AdminView} />
+        <Route path="/" component={AllProducts} />
         <Route path="/500" component={Error500} />
         {isLoggedIn && (
           <Switch>
