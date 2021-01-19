@@ -16,7 +16,7 @@ describe('AllProducts', () => {
     wrapper = shallow(<AllProducts />)
   })
 
-  it('renders the words All Products in an h1', () => {
+  it('renders the words All Products in an h2', () => {
     expect(wrapper.find('h2').text()).to.be.equal('A L L // P R O D U C T S')
   })
 })

@@ -4,8 +4,8 @@ import {fetchProducts} from '../store/allProducts'
 import {connect} from 'react-redux'
 
 export class AllProducts extends Component {
-  componentDidMount() {
-    this.props.fetchProducts()
+  async componentDidMount() {
+    await this.props.fetchProducts()
   }
 
   render() {
