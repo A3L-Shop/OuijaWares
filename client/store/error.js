@@ -27,12 +27,12 @@ export const modifyError = (error, customMessage) => {
       case '500':
         err.message = 'Something went wrong on our end. Please try again later.'
         break
-      case '404':
-        err.message = customMessage || error.message
-        break
-      case '403':
-        err.message = customMessage || error.message
-        break
+      // case '404':
+      //   err.message = customMessage || error.message
+      //   break
+      // case '403':
+      //   err.message = customMessage || error.message
+      //   break
       default:
         err.message = error.message
     }
