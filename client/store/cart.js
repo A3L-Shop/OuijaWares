@@ -49,7 +49,7 @@ export const fetchUserCart = (user = {}) => {
   return async dispatch => {
     try {
       if (user.id) {
-        const {data} = await Axios.get('/api/cart', {userId: user.id})
+        const {data} = await Axios.get(`/api/cart/${user.id}`)
         dispatch(populateCart(data.products))
       }
     } catch (error) {
