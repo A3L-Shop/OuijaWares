@@ -2,11 +2,10 @@ import React, {Component} from 'react'
 import Product from './Product'
 import {fetchProducts} from '../store/allProducts'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 
 export class AllProducts extends Component {
-  async componentDidMount() {
-    await this.props.fetchProducts()
+  componentDidMount() {
+    this.props.fetchProducts()
   }
 
   render() {
