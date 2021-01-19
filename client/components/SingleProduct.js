@@ -14,7 +14,7 @@ export class SingleProduct extends Component {
   }
 
   async componentWillUnmount() {
-    await this.props.clearProduct()
+    await this.props.clearProductChoice()
   }
 
   async handleClick(product) {
