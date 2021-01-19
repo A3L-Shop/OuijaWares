@@ -1,9 +1,9 @@
 const router = require('express').Router()
 const {Order, Product} = require('../db')
-const {isLoggedIn} = require('./securityGate')
+const {isLoggedIn, isYourself} = require('./securityGate')
 module.exports = router
 
-router.get('/', isLoggedIn, async (req, res, next) => {
+router.get('/:id', isYourself, async (req, res, next) => {
   try {
     const userId = req.user.id
     const cart = await Order.findOne({
@@ -23,6 +23,7 @@ router.get('/', isLoggedIn, async (req, res, next) => {
 router.post('/', isLoggedIn, async (req, res, next) => {
   try {
     const userId = req.user.id
+    console.log(req.body)
     const {productId, quantity} = req.body
     const cart = await Order.findOrCreate({
       where: {userId: userId, isActive: true}

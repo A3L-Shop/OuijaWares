@@ -1,6 +1,7 @@
 // route middleware to make sure a user is logged in
 const isLoggedIn = (req, res, next) => {
-  if (req.user && req.user.id === req.body.userId) {
+  if (req.user && req.body.userId === req.user.id) {
+    console.log(req.body)
     next()
   } else {
     res.sendStatus(403)
@@ -22,7 +23,7 @@ const isYourself = (req, res, next) => {
   if (+req.params.id === req.user.id) {
     next()
   } else {
-    res.send("you don't have access to this user")
+    res.status(403).send("you don't have access to this user")
   }
 }
 
