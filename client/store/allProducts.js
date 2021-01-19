@@ -28,7 +28,7 @@ export const fetchProducts = () => {
       const {data} = await Axios.get('/api/products')
       dispatch(getAllProducts(data))
     } catch (error) {
-      modifyError(error)
+      dispatch(modifyError(error))
     }
   }
 }
@@ -43,7 +43,7 @@ export const editInventoryAmount = (productId, newInventory, user) => {
         dispatch(editInventory(productId, newInventory))
       }
     } catch (error) {
-      modifyError(error)
+      dispatch(modifyError(error))
     }
   }
 }

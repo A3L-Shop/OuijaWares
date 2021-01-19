@@ -31,7 +31,7 @@ export const me = () => async dispatch => {
       dispatch(fetchUserCart(data))
     }
   } catch (error) {
-    modifyError(error)
+    dispatch(modifyError(error))
   }
 }
 
@@ -48,7 +48,7 @@ export const auth = (email, password, method) => async dispatch => {
     dispatch(fetchUserCart(res.data))
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
-    modifyError(dispatchOrHistoryErr)
+    dispatch(modifyError(dispatchOrHistoryErr))
   }
 }
 
@@ -59,7 +59,7 @@ export const logout = () => async dispatch => {
     dispatch(clearCart())
     history.push('/login')
   } catch (error) {
-    modifyError(error)
+    dispatch(modifyError(error))
   }
 }
 

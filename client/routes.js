@@ -28,11 +28,9 @@ class Routes extends Component {
   render() {
     const {isLoggedIn} = this.props
 
-    if (this.props.error.status === '500') {
-      this.props.history.push('/500')
-    }
-
-    return (
+    return this.props.error.status === '500' ? (
+      <Error500 />
+    ) : (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
@@ -42,8 +40,7 @@ class Routes extends Component {
         <Route path="/products" component={AllProducts} />
         <Route path="/confirm" component={ConfirmCheckout} />
         <Route path="/checkout" component={GuestCheckout} />
-        <Route path="/" component={AllProducts} />
-        <Route path="/500" component={Error500} />
+        <Route exact path="/" component={AllProducts} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}

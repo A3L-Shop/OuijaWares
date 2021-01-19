@@ -56,7 +56,7 @@ export const fetchUserCart = (user = {}) => {
         }
       }
     } catch (error) {
-      modifyError(error)
+      dispatch(modifyError(error))
     }
   }
 }
@@ -73,7 +73,7 @@ export const addToUserCart = (product, quantity = 1, user = {}) => {
       }
       dispatch(addProductToCart(product, quantity))
     } catch (error) {
-      modifyError(error)
+      dispatch(modifyError(error))
     }
   }
 }
@@ -90,7 +90,7 @@ export const updateLineItem = (productId, newQuantity, user = {}) => {
       }
       dispatch(updateAmount(productId, newQuantity))
     } catch (error) {
-      modifyError(error)
+      dispatch(modifyError(error))
     }
   }
 }
@@ -109,7 +109,7 @@ export const deleteLineItem = (productId, user = {}) => {
       }
       dispatch(deleteProductFromCart(productId))
     } catch (error) {
-      modifyError(error)
+      dispatch(modifyError(error))
     }
   }
 }
@@ -120,7 +120,7 @@ export const checkout = userId => {
       await Axios.put('/api/cart/checkout', {userId})
       dispatch(clearCart())
     } catch (error) {
-      modifyError(error)
+      dispatch(modifyError(error))
     }
   }
 }
@@ -131,7 +131,7 @@ export const guestCheckout = items => {
       await Axios.post('/api/cart/guestcheckout', {items})
       dispatch(clearCart())
     } catch (error) {
-      modifyError(error)
+      dispatch(modifyError(error))
     }
   }
 }
