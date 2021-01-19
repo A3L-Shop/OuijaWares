@@ -12,7 +12,7 @@ const isLoggedIn = (req, res, next) => {
 // if they aren't redirect them to the home page**** need to fix the redirect page/ message???
 
 const isAdmin = (req, res, next) =>
-  req.user.isAdmin ? next() : res.send('None shall pass')
+  req.user.isAdmin ? next() : res.status(403).send('None shall pass')
 
 // route middleware to make sure a user is logged in
 // if user is authenticated in the session, carry on
