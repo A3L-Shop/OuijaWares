@@ -9,12 +9,8 @@ export class SingleProduct extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
-    try {
-      const productId = this.props.match.params.productId
-      this.props.getSingleProduct(productId)
-    } catch (error) {
-      console.error(error)
-    }
+    const productId = this.props.match.params.productId
+    this.props.getSingleProduct(productId)
   }
 
   async componentWillUnmount() {
@@ -37,8 +33,6 @@ export class SingleProduct extends Component {
       } else {
         await this.props.addToCart(product, newQuantity, this.props.user)
       }
-    } else {
-      console.log('not enough inventory')
     }
   }
 

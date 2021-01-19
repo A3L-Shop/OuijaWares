@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {modifyError} from './error'
 
 //action type
 const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'
@@ -25,7 +26,7 @@ export const fetchSingleProduct = id => {
       const {data} = await axios.get(`/api/products/${id}`)
       dispatch(setSingleProduct(data))
     } catch (err) {
-      console.log(err)
+      modifyError(err)
     }
   }
 }

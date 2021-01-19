@@ -3,8 +3,8 @@ import {connect} from 'react-redux'
 import {clearError} from '../../store/error'
 
 class Error500 extends React.Component {
-  componentWillUnmount() {
-    this.props.clearError()
+  async componentWillUnmount() {
+    await this.props.clearError()
   }
 
   render() {
@@ -19,7 +19,7 @@ class Error500 extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    clearError: dispatch(clearError())
+    clearError: () => dispatch(clearError())
   }
 }
 

@@ -48,7 +48,7 @@ export const auth = (email, password, method) => async dispatch => {
     dispatch(fetchUserCart(res.data))
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
-    console.error(dispatchOrHistoryErr)
+    modifyError(dispatchOrHistoryErr)
   }
 }
 
@@ -58,8 +58,8 @@ export const logout = () => async dispatch => {
     dispatch(removeUser())
     dispatch(clearCart())
     history.push('/login')
-  } catch (err) {
-    console.error(err)
+  } catch (error) {
+    modifyError(error)
   }
 }
 
