@@ -3,7 +3,9 @@ import {connect} from 'react-redux'
 import {clearError} from '../../store/error'
 
 class Error500 extends React.Component {
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    this.props.clearError()
+  }
 
   render() {
     return (
