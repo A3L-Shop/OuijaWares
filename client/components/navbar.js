@@ -5,27 +5,29 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import CartQuantity from './CartQuantity'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
-  <div id="nav-container">
-    <div id="header">
-      <h1>O U I J A // W A R E S </h1>
-      <img src="/qtghost.png" />
-    </div>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-        </div>
+const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
+  return (
+    <div id="nav-container">
+      <div id="header">
+        <h1>O U I J A // W A R E S </h1>
+        <img src="/qtghost.png" />
+      </div>
+      <nav>
+        {isLoggedIn ? (
+          <div>
+            {/* The navbar will show these links after you log in */}
+            <Link to="/home">Home</Link>
+            {isAdmin && <Link to="/admin">Admin</Link>}
+            <a href="#" onClick={handleClick}>
+              Logout
+            </a>
+          </div>
+        ) : (
+          <div>
+            {/* The navbar will show these links before you log in */}
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+          </div>
       )}
       <div>
         <Link to="/products">All Products</Link>
@@ -38,14 +40,17 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     </nav>
     <hr />
   </div>
-)
+  )
+}
+
 
 /**
  * CONTAINER
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin
   }
 }
 
