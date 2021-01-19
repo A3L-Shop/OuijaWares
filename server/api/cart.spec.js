@@ -26,7 +26,7 @@ describe('Cart routes', () => {
 
     it('GET /api/cart sends 403 if not logged in', async () => {
       const res = await request(app)
-        .get('/api/cart')
+        .post('/api/cart')
         .expect(403)
 
       // expect(res.body).to.be.an('array')
