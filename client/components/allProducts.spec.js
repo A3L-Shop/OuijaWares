@@ -17,6 +17,6 @@ describe('AllProducts', () => {
   })
 
   it('renders the words All Products in an h1', () => {
-    expect(wrapper.find('h1').text()).to.be.equal('All Products')
+    expect(wrapper.find('h2').text()).to.be.equal('A L L // P R O D U C T S')
   })
 })

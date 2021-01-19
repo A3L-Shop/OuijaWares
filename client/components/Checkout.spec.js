@@ -27,7 +27,7 @@ describe('GuestCheckout', () => {
   })
 })
 
-describe.only('ConfirmCheckout', () => {
+describe('ConfirmCheckout', () => {
   let wrapper
 
   beforeEach(() => {
