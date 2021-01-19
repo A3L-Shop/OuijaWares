@@ -32,6 +32,7 @@ export class UserTable extends Component {
                 <User
                   key={user.id}
                   handleChange={this.handleChange}
+                  userId={this.props.userId}
                   {...user}
                 />
               ))}
@@ -44,7 +45,8 @@ export class UserTable extends Component {
 
 const mapState = state => {
   return {
-    users: state.allUsers
+    users: state.allUsers,
+    userId: state.user.id
   }
 }
 

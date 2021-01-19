@@ -1,6 +1,6 @@
 import React from 'react'
 
-const User = ({id, email, name, isAdmin, handleChange}) => {
+const User = ({id, email, name, isAdmin, handleChange, userId}) => {
   // console.log('in user', name, isAdmin)
   return (
     <tr>
@@ -11,6 +11,7 @@ const User = ({id, email, name, isAdmin, handleChange}) => {
           type="checkbox"
           name="isAdminState"
           checked={isAdmin}
+          disabled={userId === id}
           onChange={() => handleChange(id)}
         />
       </td>
