@@ -1,7 +1,6 @@
 // route middleware to make sure a user is logged in
 const isLoggedIn = (req, res, next) => {
   if (req.user && req.body.userId === req.user.id) {
-    console.log(req.body)
     next()
   } else {
     res.sendStatus(403)
