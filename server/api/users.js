@@ -19,7 +19,20 @@ router.get('/:id', isYourself, async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id)
     res.send(user)
-  } catch (error) {
-    next(error)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// toggle admin status of user
+router.put('/:id', isAdmin, async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id)
+    const currentAdminStatus = user.isAdmin
+    user.isAdmin = !currentAdminStatus
+    await user.save()
+    res.sendStatus(204)
+  } catch (err) {
+    next(err)
   }
 })

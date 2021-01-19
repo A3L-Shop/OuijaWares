@@ -1,28 +1,40 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchUsers} from '../../store/allUsers'
+import {fetchUsers, toggleAdminStatus} from '../../store/allUsers'
 import User from './User'
 
 export class UserTable extends Component {
+  constructor() {
+    super()
+    this.handleChange = this.handleChange.bind(this)
+  }
   componentDidMount() {
     this.props.fetchUsers()
   }
 
+  handleChange(id) {
+    this.props.toggleAdminStatus(id)
+  }
+
   render() {
     const users = this.props.users || []
-    console.log('in userTable', users)
     return (
       <div>
         <table>
           <tbody>
             <tr>
-              <td>ID</td>
               <td>E-Mail</td>
               <td>Name</td>
               <td>Admin</td>
             </tr>
             {users.length &&
-              users.map(user => <User key={user.id} {...user} />)}
+              users.map(user => (
+                <User
+                  key={user.id}
+                  handleChange={this.handleChange}
+                  {...user}
+                />
+              ))}
           </tbody>
         </table>
       </div>
@@ -38,7 +50,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchUsers: () => dispatch(fetchUsers())
+    fetchUsers: () => dispatch(fetchUsers()),
+    toggleAdminStatus: id => dispatch(toggleAdminStatus(id))
   }
 }
 

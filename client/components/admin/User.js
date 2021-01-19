@@ -1,13 +1,18 @@
 import React from 'react'
 
-const User = ({id, email, name, isAdmin}) => {
-  console.log(id, email, name, isAdmin)
+const User = ({id, email, name, isAdmin, handleChange}) => {
   return (
     <tr>
-      <td>{id}</td>
       <td>{email}</td>
       <td>{name}</td>
-      <td>{isAdmin ? 'true' : 'false'}</td>
+      <td>
+        <input
+          type="checkbox"
+          name="isAdminState"
+          checked={isAdmin}
+          onChange={() => handleChange(id)}
+        />
+      </td>
     </tr>
   )
 }
