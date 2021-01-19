@@ -35,23 +35,24 @@ class Product extends Component {
     const product = this.props.product
     const {name, price, inventoryAmount, imageUrl} = product
     return (
-      <div>
-        <Link to={`/products/${product.id}`}>
-          <h1>{name}</h1>
-        </Link>
-
-        <img src={imageUrl} />
-        <h4> ${price}</h4>
-        {inventoryAmount ? (
-          <div>
-            <h4>{inventoryAmount} in stock</h4>
-            <button type="button" onClick={() => this.handleClick()}>
-              Add To Cart
-            </button>
-          </div>
-        ) : (
-          <h4>Sold Out</h4>
-        )}
+      <div className="product">
+        <div>
+          <Link to={`/products/${product.id}`}>
+            <h1>{name}</h1>
+            <img src={imageUrl} />
+          </Link>
+          <h4> ${price}</h4>
+          {inventoryAmount ? (
+            <div>
+              <h4>{inventoryAmount} in stock</h4>
+              <button type="button" onClick={() => this.handleClick()}>
+                Add To Cart
+              </button>
+            </div>
+          ) : (
+            <h4>Sold Out</h4>
+          )}
+        </div>
       </div>
     )
   }
