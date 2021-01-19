@@ -28,6 +28,10 @@ class Routes extends Component {
   render() {
     const {isLoggedIn} = this.props
 
+    if (this.props.error.status === '500') {
+      this.props.history.push('/500')
+    }
+
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
@@ -60,7 +64,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    error: state.error
   }
 }
 

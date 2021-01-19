@@ -1,12 +1,24 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {clearError} from '../../store/error'
 
-const Error500 = () => {
-  return (
-    <div>
-      <h2>Error code 500</h2>
-      <div>There was a system error.</div>
-    </div>
-  )
+class Error500 extends React.Component {
+  componentWillUnmount() {}
+
+  render() {
+    return (
+      <div>
+        <h2>Error code 500</h2>
+        <div>There was a system error.</div>
+      </div>
+    )
+  }
 }
 
-export default Error500
+const mapDispatch = dispatch => {
+  return {
+    clearError: dispatch(clearError())
+  }
+}
+
+export default connect(null, mapDispatch)(Error500)
