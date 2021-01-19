@@ -29,7 +29,9 @@ class Routes extends Component {
   render() {
     const {isLoggedIn} = this.props
 
-    return (
+    return this.props.error.status === '500' ? (
+      <Error500 />
+    ) : (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
@@ -40,8 +42,7 @@ class Routes extends Component {
         <Route path="/confirm" component={ConfirmCheckout} />
         <Route path="/checkout" component={GuestCheckout} />
         <Route path="/admin" component={AdminView} />
-        <Route path="/" component={AllProducts} />
-        <Route path="/500" component={Error500} />
+        <Route exact path="/" component={AllProducts} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -62,7 +63,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    error: state.error
   }
 }
 

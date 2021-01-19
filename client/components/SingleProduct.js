@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchSingleProduct} from '../store/singleProduct'
+import {fetchSingleProduct, clearProduct} from '../store/singleProduct'
 import {addToUserCart, updateLineItem} from '../store/cart'
 
 export class SingleProduct extends Component {
@@ -9,12 +9,12 @@ export class SingleProduct extends Component {
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
-    try {
-      const productId = this.props.match.params.productId
-      this.props.getSingleProduct(productId)
-    } catch (error) {
-      console.error(error)
-    }
+    const productId = this.props.match.params.productId
+    this.props.getSingleProduct(productId)
+  }
+
+  async componentWillUnmount() {
+    await this.props.clearProductChoice()
   }
 
   async handleClick(product) {
@@ -33,8 +33,6 @@ export class SingleProduct extends Component {
       } else {
         await this.props.addToCart(product, newQuantity, this.props.user)
       }
-    } else {
-      console.log('not enough inventory')
     }
   }
 
@@ -81,7 +79,8 @@ const mapDispatchToProps = dispatch => {
     addToCart: (product, quantity, user) =>
       dispatch(addToUserCart(product, quantity, user)),
     updateAmount: (productId, newQuantity, user) =>
-      dispatch(updateLineItem(productId, newQuantity, user))
+      dispatch(updateLineItem(productId, newQuantity, user)),
+    clearProductChoice: () => dispatch(clearProduct())
   }
 }
 

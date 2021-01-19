@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import CartQuantity from './CartQuantity'
 
 const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
   return (
@@ -27,18 +28,21 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
           </div>
-        )}
-        <div>
-          <Link to="/products">All Products</Link>
-        </div>
-        <div>
-          <Link to="/cart">Your Cart</Link>
-        </div>
-      </nav>
-      <hr />
-    </div>
+      )}
+      <div>
+        <Link to="/products">All Products</Link>
+      </div>
+      <div>
+        <Link to="/cart">
+          Your Cart <CartQuantity />
+        </Link>
+      </div>
+    </nav>
+    <hr />
+  </div>
   )
 }
+
 
 /**
  * CONTAINER

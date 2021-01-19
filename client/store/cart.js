@@ -1,4 +1,5 @@
 import Axios from 'axios'
+import {modifyError} from './error'
 
 // action type
 const POPULATE_CART = 'POPULATE_CART'
@@ -50,10 +51,12 @@ export const fetchUserCart = (user = {}) => {
     try {
       if (user.id) {
         const {data} = await Axios.get(`/api/cart/${user.id}`)
-        dispatch(populateCart(data.products))
+        if (data.products) {
+          dispatch(populateCart(data.products))
+        }
       }
     } catch (error) {
-      console.error('error in fetchUserCart thunk\n', error)
+      dispatch(modifyError(error))
     }
   }
 }
@@ -69,8 +72,8 @@ export const addToUserCart = (product, quantity = 1, user = {}) => {
         })
       }
       dispatch(addProductToCart(product, quantity))
-    } catch (err) {
-      console.log('error in addToUserCart thunk\n', err)
+    } catch (error) {
+      dispatch(modifyError(error))
     }
   }
 }
@@ -87,7 +90,7 @@ export const updateLineItem = (productId, newQuantity, user = {}) => {
       }
       dispatch(updateAmount(productId, newQuantity))
     } catch (error) {
-      console.error('error in fetchAndUpdateLineItem thunk\n', error)
+      dispatch(modifyError(error))
     }
   }
 }
@@ -106,7 +109,7 @@ export const deleteLineItem = (productId, user = {}) => {
       }
       dispatch(deleteProductFromCart(productId))
     } catch (error) {
-      console.error('error in deleteLineItem thunk\n', error)
+      dispatch(modifyError(error))
     }
   }
 }
@@ -117,7 +120,7 @@ export const checkout = userId => {
       await Axios.put('/api/cart/checkout', {userId})
       dispatch(clearCart())
     } catch (error) {
-      console.error('error in checkout thunk\n', error)
+      dispatch(modifyError(error))
     }
   }
 }
@@ -128,7 +131,7 @@ export const guestCheckout = items => {
       await Axios.post('/api/cart/guestcheckout', {items})
       dispatch(clearCart())
     } catch (error) {
-      console.error('error in guestCheckout thunk\n', error)
+      dispatch(modifyError(error))
     }
   }
 }
