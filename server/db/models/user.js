@@ -75,3 +75,10 @@ User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
+
+// hook to check if user either has a password or used google oauth
+User.beforeValidate(user => {
+  if (!user.pw && !user.googleId) {
+    throw new Error('Invalid user type: Must have password if not OAuth user')
+  }
+})

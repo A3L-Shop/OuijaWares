@@ -38,7 +38,9 @@ export const editInventoryAmount = (productId, newInventory, user) => {
     try {
       if (user.isAdmin) {
         await Axios.put(`/api/products/${productId}`, {
-          inventoryAmount: newInventory
+          inventoryAmount: newInventory,
+          //maybe
+          user: user
         })
         dispatch(editInventory(productId, newInventory))
       }

@@ -35,10 +35,15 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (email, password, method) => async dispatch => {
+export const auth = (email, password, method, cart = {}) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
+    if (Object.keys(cart).length) {
+      const userId = res.data.user.id
+      //iterate cart items
+      //await axios.post(`/api/cart`, {//key(productID), userId, cart[key].quantity})
+    }
   } catch (authErr) {
     return dispatch(getUser({error: authErr}))
   }
