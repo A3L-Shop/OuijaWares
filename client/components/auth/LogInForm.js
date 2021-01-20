@@ -8,6 +8,7 @@ import {auth} from '../../store'
  */
 const LogInForm = props => {
   const {handleSubmit, error} = props
+  const warningMessage = 'this is a required field!'
 
   return (
     <div>
@@ -15,6 +16,7 @@ const LogInForm = props => {
         <div>
           <label htmlFor="email">
             <small>Email</small>
+            {error && warningMessage && <span>{warningMessage}</span>}
           </label>
           <input name="email" type="text" />
         </div>

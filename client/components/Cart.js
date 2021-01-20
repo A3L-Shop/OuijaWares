@@ -2,11 +2,13 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
 import {checkout} from '../store/cart'
+import PromoCode from './PromoCode'
 
 export class Cart extends Component {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   async handleClick() {
@@ -16,6 +18,10 @@ export class Cart extends Component {
     } else {
       this.props.history.push('/checkout')
     }
+  }
+
+  async handleSubmit() {
+    console.log('you promod')
   }
 
   render() {
@@ -34,6 +40,11 @@ export class Cart extends Component {
             <h3>{`Total Price: $${
               totalPrice ? totalPrice.toFixed(2) : '0.00'
             }`}</h3>
+            {this.props.user.id ? (
+              <PromoCode handleSubmit={this.handleSubmit} />
+            ) : (
+              <div>Please log in or sign up to use promo codes!</div>
+            )}
             <button type="button" onClick={() => this.handleClick()}>
               Checkout
             </button>
