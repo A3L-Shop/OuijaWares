@@ -54,8 +54,13 @@ router.put('/promo', isLoggedIn, async (req, res, next) => {
       where: {userId: req.user.id, isActive: true}
     })
     const promo = await PromoCode.findOne({where: {code: req.body.promoCode}})
-    order.setPromoCode(promo)
-    res.send(promo.discount)
+    if (promo) {
+      await order.setPromoCode(promo)
+      const totalPrice = await order.getTotalPrice
+      res.send(totalPrice)
+    } else {
+      res.sendStatus(204)
+    }
   } catch (err) {
     next(err)
   }
