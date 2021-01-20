@@ -13,7 +13,8 @@ export class SignupForm extends Component {
       email: '',
       password: '',
       confirmPw: '',
-      pwMatches: true
+      pwMatches: true,
+      pwTooShort: false
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -25,10 +26,19 @@ export class SignupForm extends Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    if (this.state.password === this.state.confirmPw) {
-      this.state.signupRequest(this.state.email, this.state.password, 'signup')
+    if (this.state.password.length > 4) {
+      this.setState({pwTooShort: false})
+      if (this.state.password === this.state.confirmPw) {
+        this.props.signupRequest(
+          this.state.email,
+          this.state.password,
+          'signup'
+        )
+      } else {
+        this.setState({pwMatches: false})
+      }
     } else {
-      this.setState({pwMatches: false})
+      this.setState({pwTooShort: true})
     }
   }
 
@@ -68,6 +78,9 @@ export class SignupForm extends Component {
           </div>
           {!this.state.pwMatches && (
             <div className="warning">Password must match</div>
+          )}
+          {this.state.pwTooShort && (
+            <div className="warning">Password must be at least 5 letters</div>
           )}
           {error && error.response && <div> {error.response.data} </div>}
         </form>
