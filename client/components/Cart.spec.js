@@ -11,10 +11,10 @@ describe('Cart', () => {
   let userCart
 
   beforeEach(() => {
-    const contents = [
-      {product: {id: 1, name: 'mirror', price: 5.55}, amount: 2},
-      {product: {id: 2, name: 'picture', price: 10.65}, amount: 1}
-    ]
+    const contents = {
+      1: {product: {id: 1, name: 'mirror', price: 5.55}, quantity: 2},
+      2: {product: {id: 2, name: 'picture', price: 10.65}, quantity: 1}
+    }
     userCart = shallow(<Cart cartItems={contents} />)
   })
 
