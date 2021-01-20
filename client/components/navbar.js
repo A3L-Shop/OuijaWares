@@ -19,7 +19,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
             <Link to="/home">Home</Link>
             {isAdmin && (
               <div>
-                <Link to="/admin">Admin</Link>
+                <Link to="/users">Users</Link>
                 <Link to="/inventory">Inventory</Link>
               </div>
             )}

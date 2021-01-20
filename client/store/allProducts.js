@@ -33,17 +33,13 @@ export const fetchProducts = () => {
   }
 }
 
-export const editInventoryAmount = (productId, newInventory, user) => {
+export const editInventoryAmount = (productId, newInventory) => {
   return async dispatch => {
     try {
-      if (user.isAdmin) {
-        await Axios.put(`/api/products/${productId}`, {
-          inventoryAmount: newInventory,
-          //maybe
-          user: user
-        })
-        dispatch(editInventory(productId, newInventory))
-      }
+      await Axios.put(`/api/products/${productId}`, {
+        inventoryAmount: newInventory
+      })
+      dispatch(editInventory(productId, newInventory))
     } catch (error) {
       dispatch(modifyError(error))
     }

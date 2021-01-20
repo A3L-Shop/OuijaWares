@@ -1,13 +1,16 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../../store/allProducts'
+import ProductRow from './ProductRow'
 
-export class InventoryTable extends Component {
+class InventoryTable extends Component {
   componentDidMount() {
-    this.props.fetchUsers()
+    this.props.fetchProducts()
   }
+
   render() {
     const products = this.props.products || []
+    console.log(products)
 
     return (
       <div>
@@ -16,16 +19,11 @@ export class InventoryTable extends Component {
             <tr>
               <td>Name</td>
               <td>Inventory</td>
+              <td>New Inventory</td>
             </tr>
-            {products.legnth &&
-              products.map(prod => {
-                return (
-                  <tr key={prod.id}>
-                    <td>{prod.name}</td>
-                    <td>{prod.inventoryAmount}</td>
-                  </tr>
-                )
-              })}
+            {products.map(product => (
+              <ProductRow key={product.id} {...product} />
+            ))}
           </tbody>
         </table>
       </div>
@@ -35,7 +33,7 @@ export class InventoryTable extends Component {
 
 const mapState = state => {
   return {
-    products: state.products
+    products: state.allProducts
   }
 }
 

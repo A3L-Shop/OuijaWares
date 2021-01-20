@@ -13,7 +13,7 @@ import {
   NotFound,
   Error500,
   GuestCheckout,
-  AdminView,
+  UsersView,
   InventoryView
 } from './components'
 import {me} from './store'
@@ -28,7 +28,7 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isAdmin} = this.props
 
     return this.props.error.status === '500' ? (
       <Error500 />
@@ -49,7 +49,7 @@ class Routes extends Component {
             <Route path="/home" component={UserHome} />
             {isAdmin && (
               <Switch>
-                <Route path="/admin" component={AdminView} />
+                <Route path="/users" component={UsersView} />
                 <Route path="/inventory" component={InventoryView} />
               </Switch>
             )}
@@ -70,7 +70,8 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
-    error: state.error
+    error: state.error,
+    isAdmin: state.user.isAdmin
   }
 }
 

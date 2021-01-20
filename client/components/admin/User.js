@@ -1,7 +1,6 @@
 import React from 'react'
 
 const User = ({id, email, name, isAdmin, handleChange, userId}) => {
-  // console.log('in user', name, isAdmin)
   return (
     <tr>
       <td>{email}</td>
