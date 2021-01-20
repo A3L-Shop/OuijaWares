@@ -1,4 +1,4 @@
-const {db, User, Product, Order} = require('../server/db')
+const {db, User, Product, Order, PromoCode} = require('../server/db')
 
 const seed = async () => {
   try {
@@ -121,6 +121,11 @@ const seed = async () => {
       isAdmin: true,
       name: 'me',
       password: 'password'
+    })
+
+    await PromoCode.create({
+      code: 'SpookyScarySale',
+      discount: 0.5
     })
 
     for (let i = 0; i < 5; i++) {
