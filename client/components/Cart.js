@@ -20,7 +20,9 @@ export class Cart extends Component {
     }
   }
 
-  async handleSubmit() {}
+  async handleSubmit() {
+    console.log('you promod')
+  }
 
   render() {
     let totalPrice = 0

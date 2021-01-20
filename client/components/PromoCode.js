@@ -21,15 +21,8 @@ export const PromoCode = props => {
 const mapState = state => {
   return {
     cartPrice: state.cartPrice,
-    user: state.user,
-    promoCode: state.promoCode
+    user: state.user
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    loggedInCheckout: id => dispatch(checkout(id))
-  }
-}
-
-export default connect(mapState, mapDispatch)(PromoCode)
+export default connect(mapState)(PromoCode)
