@@ -11,8 +11,8 @@ export class Cart extends Component {
   }
 
   async handleClick() {
-    if (this.props.user.id) {
-      await this.props.loggedInCheckout(this.props.user.id)
+    if (this.props.userId) {
+      await this.props.loggedInCheckout(this.props.userId)
       this.props.history.push('/confirm')
     } else {
       this.props.history.push('/checkout')
