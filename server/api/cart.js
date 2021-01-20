@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, Product} = require('../db')
+const {Order, Product, PromoCode} = require('../db')
 const {isLoggedIn, isYourself} = require('./securityGate')
 module.exports = router
 
@@ -36,24 +36,29 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   }
 })
 
-// router.put('/', async (req, res, next) => {
-//   try {
-//     const userId = req.body.userId
-//     const {productId, quantity} = req.body
-//     const order = await Order.findOne({
-//       where: {userId: userId, isActive: true},
-//       include: {
-//         model: Product,
-//         where: {id: productId}
-//       }
-//     })
-//     order.products[0].quantity += quantity
-//     db.save()
-//     res.sendStatus(200)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
+router.get('/:id/price', isYourself, async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: {userId: req.params.id, isActive: true}
+    })
+    const totalPrice = await order.getTotalPrice
+    res.send(totalPrice)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/promo', isYourself, async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: {userId: req.params.id, isActive: true}
+    })
+    const promo = await PromoCode.findOne({where: {code: req.body.promoCode}})
+    order.setPromoCode(promo)
+  } catch (err) {
+    next(err)
+  }
+})
 
 router.delete('/', isLoggedIn, async (req, res, next) => {
   try {

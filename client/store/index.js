@@ -8,6 +8,7 @@ import cart from './cart'
 import singleProduct from './singleProduct'
 import error from './error'
 import allUsers from './allUsers'
+import totalPrice from './totalPrice'
 
 const reducer = combineReducers({
   user,
@@ -15,7 +16,8 @@ const reducer = combineReducers({
   singleProduct,
   cart,
   error,
-  allUsers
+  allUsers,
+  totalPrice
 })
 
 const middleware = composeWithDevTools(
