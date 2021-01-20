@@ -56,6 +56,18 @@ export default function allProductsReducer(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       return action.products
+    case EDIT_INVENTORY: {
+      const newState = state.map(product => {
+        if (product.id === action.productId) {
+          const newProduct = {...product}
+          newProduct.inventoryAmount = action.newInventory
+          return newProduct
+        } else {
+          return product
+        }
+      })
+      return newState
+    }
     default:
       return state
   }
