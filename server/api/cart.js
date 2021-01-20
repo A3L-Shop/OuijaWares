@@ -26,7 +26,8 @@ router.get('/:id/price', isYourself, async (req, res, next) => {
       where: {userId: req.user.id, isActive: true}
     })
     const totalPrice = await order.getTotalPrice()
-    res.status(200).json(totalPrice)
+    const promo = await order.getPromoCode()
+    res.status(200).json({totalPrice, promo})
   } catch (err) {
     next(err)
   }

@@ -8,7 +8,6 @@ export class Cart extends Component {
   constructor() {
     super()
     this.handleClick = this.handleClick.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   async handleClick() {
@@ -18,10 +17,6 @@ export class Cart extends Component {
     } else {
       this.props.history.push('/checkout')
     }
-  }
-
-  async handleSubmit() {
-    console.log('you promod')
   }
 
   render() {
@@ -38,10 +33,14 @@ export class Cart extends Component {
               return <CartItem item={items[id]} key={id} />
             })}
             <h3>{`Total Price: $${
-              totalPrice ? totalPrice.toFixed(2) : '0.00'
+              this.props.userId
+                ? this.props.cartPrice.total.toFixed(2)
+                : totalPrice
+                ? totalPrice.toFixed(2)
+                : '0.00'
             }`}</h3>
             {this.props.userId ? (
-              <PromoCode handleSubmit={this.handleSubmit} />
+              <PromoCode />
             ) : (
               <div>Please log in or sign up to use promo codes!</div>
             )}
@@ -60,7 +59,8 @@ export class Cart extends Component {
 const mapState = state => {
   return {
     cartItems: state.cart,
-    userId: state.user.id
+    userId: state.user.id,
+    cartPrice: state.cartPrice
   }
 }
 

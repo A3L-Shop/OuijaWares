@@ -7,10 +7,11 @@ const APPLY_PROMO = 'APPLY_PROMO'
 const CLEAR_PRICE = 'CHECKOUT'
 
 //action creators
-const setTotalPrice = price => {
+const setTotalPrice = payload => {
   return {
     type: SET_TOTAL_PRICE,
-    price
+    price: payload.totalPrice,
+    promo: payload.promo
   }
 }
 
@@ -34,6 +35,7 @@ export const fetchTotalPrice = userId => {
     try {
       if (userId) {
         const {data} = await axios.get(`/api/cart/${userId}/price`)
+        console.log(data)
         dispatch(setTotalPrice(data))
       }
     } catch (error) {
@@ -49,8 +51,6 @@ export const addPromoCodeToOrder = (userId, promoCode) => {
         const res = await axios.put(`/api/cart/promo`, {promoCode, userId})
         if (res.status === 200) {
           dispatch(applyPromo(promoCode, res.data))
-        } else if (res.status === 204) {
-          dispatch(applyPromo('Not a valid promo code'))
         }
       }
     } catch (error) {
@@ -67,6 +67,9 @@ export default function(state = initialState, action) {
     case SET_TOTAL_PRICE: {
       const newState = {...state}
       newState.total = action.price
+      if (action.promo) {
+        newState.promo = action.promo
+      }
       return newState
     }
     case APPLY_PROMO: {
