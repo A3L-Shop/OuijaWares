@@ -13,7 +13,8 @@ import {
   NotFound,
   Error500,
   GuestCheckout,
-  AdminView
+  UsersView,
+  InventoryView
 } from './components'
 import {me} from './store'
 import {fetchUserCart} from './store/cart'
@@ -27,7 +28,7 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isAdmin} = this.props
 
     return this.props.error.status === '500' ? (
       <Error500 />
@@ -41,15 +42,20 @@ class Routes extends Component {
         <Route path="/products" component={AllProducts} />
         <Route path="/confirm" component={ConfirmCheckout} />
         <Route path="/checkout" component={GuestCheckout} />
-        <Route path="/admin" component={AdminView} />
         <Route exact path="/" component={AllProducts} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            {isAdmin && (
+              <Switch>
+                <Route path="/users" component={UsersView} />
+                <Route path="/inventory" component={InventoryView} />
+              </Switch>
+            )}
           </Switch>
         )}
-        {/* Displays our Login component as a fallback */}
+        {/* Displays NotFound page if none of the routes match */}
         <Route component={NotFound} />
       </Switch>
     )
@@ -64,7 +70,8 @@ const mapState = state => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.id,
-    error: state.error
+    error: state.error,
+    isAdmin: state.user.isAdmin
   }
 }
 

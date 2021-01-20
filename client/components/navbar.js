@@ -17,7 +17,12 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
           <div>
             {/* The navbar will show these links after you log in */}
             <Link to="/home">Home</Link>
-            {isAdmin && <Link to="/admin">Admin</Link>}
+            {isAdmin && (
+              <div>
+                <Link to="/users">Users</Link>
+                <Link to="/inventory">Inventory</Link>
+              </div>
+            )}
             <a href="#" onClick={handleClick}>
               Logout
             </a>
@@ -28,21 +33,20 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
             <Link to="/login">Login</Link>
             <Link to="/signup">Sign Up</Link>
           </div>
-      )}
-      <div>
-        <Link to="/products">All Products</Link>
-      </div>
-      <div>
-        <Link to="/cart">
-          Your Cart <CartQuantity />
-        </Link>
-      </div>
-    </nav>
-    <hr />
-  </div>
+        )}
+        <div>
+          <Link to="/products">All Products</Link>
+        </div>
+        <div>
+          <Link to="/cart">
+            Your Cart <CartQuantity />
+          </Link>
+        </div>
+      </nav>
+      <hr />
+    </div>
   )
 }
-
 
 /**
  * CONTAINER

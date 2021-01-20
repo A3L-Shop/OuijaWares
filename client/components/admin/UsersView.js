@@ -1,7 +1,7 @@
 import React from 'react'
 import UserTable from './UserTable'
 
-const AdminView = () => {
+const UsersView = () => {
   return (
     <div>
       <h2>All Users</h2>
@@ -10,4 +10,4 @@ const AdminView = () => {
   )
 }
 
-export default AdminView
+export default UsersView
