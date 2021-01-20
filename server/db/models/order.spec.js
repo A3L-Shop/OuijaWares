@@ -6,7 +6,7 @@ describe('Order model', () => {
     return db.sync({force: true})
   })
 
-  describe.only('instanceMethods', () => {
+  describe('instanceMethods', () => {
     describe('getTotalPrice', () => {
       let order1
       let order2
