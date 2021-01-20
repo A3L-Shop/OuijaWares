@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import {modifyError} from './error'
-import {fetchTotalPrice, updateTotalPrice} from './totalPrice'
+import {fetchTotalPrice, clearPrice} from './cartPrice'
 
 // action type
 const POPULATE_CART = 'POPULATE_CART'
@@ -73,8 +73,6 @@ export const addToUserCart = (product, quantity = 1, user = {}) => {
           quantity
         })
         dispatch(fetchTotalPrice())
-      } else {
-        dispatch(updateTotalPrice(product.price * quantity))
       }
       dispatch(addProductToCart(product, quantity))
     } catch (error) {
@@ -93,8 +91,6 @@ export const updateLineItem = (productId, newQuantity, user = {}) => {
           quantity: newQuantity
         })
         dispatch(fetchTotalPrice())
-      } else {
-        dispatch(updateTotalPrice(product.price * quantity))
       }
       dispatch(updateAmount(productId, newQuantity))
     } catch (error) {
@@ -113,6 +109,7 @@ export const deleteLineItem = (productId, user = {}) => {
             userId: user.id
           }
         })
+        dispatch(fetchTotalPrice())
       }
       dispatch(deleteProductFromCart(productId))
     } catch (error) {
@@ -126,6 +123,7 @@ export const checkout = userId => {
     try {
       await Axios.put('/api/cart/checkout', {userId})
       dispatch(clearCart())
+      dispatch(clearPrice())
     } catch (error) {
       dispatch(modifyError(error))
     }
