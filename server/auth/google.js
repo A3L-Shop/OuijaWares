@@ -3,6 +3,7 @@ const router = require('express').Router()
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 const {User} = require('../db/models')
 module.exports = router
+// require('../../secrets')
 
 /**
  * For OAuth keys and other secrets, your Node process will search
@@ -56,7 +57,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   router.get(
     '/callback',
     passport.authenticate('google', {
-      successRedirect: '/home',
+      successRedirect: '/',
       failureRedirect: '/login'
     })
   )
