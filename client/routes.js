@@ -13,7 +13,8 @@ import {
   NotFound,
   Error500,
   GuestCheckout,
-  AdminView
+  AdminView,
+  InventoryView
 } from './components'
 import {me} from './store'
 import {fetchUserCart} from './store/cart'
@@ -41,15 +42,20 @@ class Routes extends Component {
         <Route path="/products" component={AllProducts} />
         <Route path="/confirm" component={ConfirmCheckout} />
         <Route path="/checkout" component={GuestCheckout} />
-        <Route path="/admin" component={AdminView} />
         <Route exact path="/" component={AllProducts} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
+            {isAdmin && (
+              <Switch>
+                <Route path="/admin" component={AdminView} />
+                <Route path="/inventory" component={InventoryView} />
+              </Switch>
+            )}
           </Switch>
         )}
-        {/* Displays our Login component as a fallback */}
+        {/* Displays NotFound page if none of the routes match */}
         <Route component={NotFound} />
       </Switch>
     )
