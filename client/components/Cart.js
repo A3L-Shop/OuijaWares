@@ -40,7 +40,7 @@ export class Cart extends Component {
             <h3>{`Total Price: $${
               totalPrice ? totalPrice.toFixed(2) : '0.00'
             }`}</h3>
-            {this.props.user.id ? (
+            {this.props.userId ? (
               <PromoCode handleSubmit={this.handleSubmit} />
             ) : (
               <div>Please log in or sign up to use promo codes!</div>
@@ -60,7 +60,7 @@ export class Cart extends Component {
 const mapState = state => {
   return {
     cartItems: state.cart,
-    user: state.user
+    userId: state.user.id
   }
 }
 
