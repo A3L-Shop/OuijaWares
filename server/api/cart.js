@@ -23,10 +23,10 @@ router.get('/:id', isYourself, async (req, res, next) => {
 router.get('/:id/price', isYourself, async (req, res, next) => {
   try {
     const order = await Order.findOne({
-      where: {userId: req.params.id, isActive: true}
+      where: {userId: req.user.id, isActive: true}
     })
-    const totalPrice = await order.getTotalPrice
-    res.send(totalPrice)
+    const totalPrice = await order.getTotalPrice()
+    res.status(200).json(totalPrice)
   } catch (err) {
     next(err)
   }
@@ -35,7 +35,6 @@ router.get('/:id/price', isYourself, async (req, res, next) => {
 router.post('/', isLoggedIn, async (req, res, next) => {
   try {
     const userId = req.user.id
-    console.log(req.body)
     const {productId, quantity} = req.body
     const cart = await Order.findOrCreate({
       where: {userId: userId, isActive: true}
@@ -56,8 +55,8 @@ router.put('/promo', isLoggedIn, async (req, res, next) => {
     const promo = await PromoCode.findOne({where: {code: req.body.promoCode}})
     if (promo) {
       await order.setPromoCode(promo)
-      const totalPrice = await order.getTotalPrice
-      res.send(totalPrice)
+      const totalPrice = await order.getTotalPrice()
+      res.status(200).json(totalPrice)
     } else {
       res.sendStatus(204)
     }

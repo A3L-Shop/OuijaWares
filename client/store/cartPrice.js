@@ -33,7 +33,7 @@ export const fetchTotalPrice = userId => {
   return async dispatch => {
     try {
       if (userId) {
-        const data = await axios.get(`/api/cart/${userId}/price`)
+        const {data} = await axios.get(`/api/cart/${userId}/price`)
         dispatch(setTotalPrice(data))
       }
     } catch (error) {
