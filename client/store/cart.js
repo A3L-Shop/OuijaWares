@@ -72,7 +72,7 @@ export const addToUserCart = (product, quantity = 1, user = {}) => {
           userId: user.id,
           quantity
         })
-        dispatch(fetchTotalPrice())
+        dispatch(fetchTotalPrice(user.id))
       }
       dispatch(addProductToCart(product, quantity))
     } catch (error) {
@@ -90,7 +90,7 @@ export const updateLineItem = (productId, newQuantity, user = {}) => {
           userId: user.id,
           quantity: newQuantity
         })
-        dispatch(fetchTotalPrice())
+        dispatch(fetchTotalPrice(user.id))
       }
       dispatch(updateAmount(productId, newQuantity))
     } catch (error) {
@@ -109,7 +109,7 @@ export const deleteLineItem = (productId, user = {}) => {
             userId: user.id
           }
         })
-        dispatch(fetchTotalPrice())
+        dispatch(fetchTotalPrice(user.id))
       }
       dispatch(deleteProductFromCart(productId))
     } catch (error) {
