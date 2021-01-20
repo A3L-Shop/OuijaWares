@@ -20,6 +20,18 @@ router.get('/:id', isYourself, async (req, res, next) => {
   }
 })
 
+router.get('/:id/price', isYourself, async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: {userId: req.params.id, isActive: true}
+    })
+    const totalPrice = await order.getTotalPrice
+    res.send(totalPrice)
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.post('/', isLoggedIn, async (req, res, next) => {
   try {
     const userId = req.user.id
@@ -36,25 +48,14 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   }
 })
 
-router.get('/:id/price', isYourself, async (req, res, next) => {
+router.put('/promo', isLoggedIn, async (req, res, next) => {
   try {
     const order = await Order.findOne({
-      where: {userId: req.params.id, isActive: true}
-    })
-    const totalPrice = await order.getTotalPrice
-    res.send(totalPrice)
-  } catch (err) {
-    next(err)
-  }
-})
-
-router.put('/promo', isYourself, async (req, res, next) => {
-  try {
-    const order = await Order.findOne({
-      where: {userId: req.params.id, isActive: true}
+      where: {userId: req.user.id, isActive: true}
     })
     const promo = await PromoCode.findOne({where: {code: req.body.promoCode}})
     order.setPromoCode(promo)
+    res.send(promo.discount)
   } catch (err) {
     next(err)
   }
