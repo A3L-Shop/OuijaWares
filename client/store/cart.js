@@ -7,6 +7,7 @@ const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART'
 const UPDATE_AMOUNT = 'UPDATE_AMOUNT'
 const DELETE_PRODUCT_FROM_CART = 'DELETE_PRODUCT_FROM_CART'
 const CLEAR_CART = 'CLEAR_CART'
+const POPULATE_CART_LOCAL = 'POPULATE_CART_LOCAL'
 
 // action creator
 const populateCart = products => {
@@ -45,15 +46,29 @@ export const clearCart = () => {
   }
 }
 
+const populateLocalCart = cart => {
+  return {
+    type: POPULATE_CART_LOCAL,
+    localCart: cart
+  }
+}
+
 // thunks
 export const fetchUserCart = (user = {}) => {
   return async dispatch => {
     try {
+      console.log('userID', user)
       if (user.id) {
         const {data} = await Axios.get(`/api/cart/${user.id}`)
         if (data.products) {
           dispatch(populateCart(data.products))
         }
+      } else {
+        console.log('here')
+        console.log(JSON.parse(window.localStorage.getItem('cart')))
+        dispatch(
+          populateLocalCart(JSON.parse(window.localStorage.getItem('cart')))
+        )
       }
     } catch (error) {
       dispatch(modifyError(error))
@@ -160,6 +175,9 @@ export default function allProductsReducer(state = initialState, action) {
       return newState
     }
 
+    case POPULATE_CART_LOCAL:
+      return action.localCart
+
     case ADD_PRODUCT_TO_CART: {
       const id = action.product.id
       const newState = {...state}
@@ -167,22 +185,26 @@ export default function allProductsReducer(state = initialState, action) {
         product: action.product,
         quantity: action.quantity
       }
+      window.localStorage.setItem('cart', JSON.stringify(newState))
       return newState
     }
 
     case UPDATE_AMOUNT: {
       const newState = {...state}
       newState[action.productId].quantity = action.newQuantity
+      window.localStorage.setItem('cart', JSON.stringify(newState))
       return newState
     }
 
     case DELETE_PRODUCT_FROM_CART: {
       const newState = {...state}
       delete newState[action.productId]
+      window.localStorage.setItem('cart', JSON.stringify(newState))
       return newState
     }
 
     case CLEAR_CART:
+      window.localStorage.clear()
       return initialState
 
     default:

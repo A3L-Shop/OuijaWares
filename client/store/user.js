@@ -29,6 +29,8 @@ export const me = () => async dispatch => {
     dispatch(getUser(data || defaultUser))
     if (data.id) {
       dispatch(fetchUserCart(data))
+    } else {
+      dispatch(fetchUserCart())
     }
   } catch (error) {
     dispatch(modifyError(error))

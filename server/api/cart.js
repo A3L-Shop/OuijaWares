@@ -36,25 +36,6 @@ router.post('/', isLoggedIn, async (req, res, next) => {
   }
 })
 
-// router.put('/', async (req, res, next) => {
-//   try {
-//     const userId = req.body.userId
-//     const {productId, quantity} = req.body
-//     const order = await Order.findOne({
-//       where: {userId: userId, isActive: true},
-//       include: {
-//         model: Product,
-//         where: {id: productId}
-//       }
-//     })
-//     order.products[0].quantity += quantity
-//     db.save()
-//     res.sendStatus(200)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-
 router.delete('/', isLoggedIn, async (req, res, next) => {
   try {
     const userId = req.user.id
