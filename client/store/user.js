@@ -2,6 +2,7 @@ import axios from 'axios'
 import history from '../history'
 import {fetchUserCart, clearCart} from './cart'
 import {modifyError} from './error'
+import store from './index'
 
 /**
  * ACTION TYPES
@@ -35,14 +36,20 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (email, password, method, cart = {}) => async dispatch => {
+export const auth = (email, password, method) => async dispatch => {
   let res
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
+    const cart = store.getState().cart
     if (Object.keys(cart).length) {
-      const userId = res.data.user.id
-      //iterate cart items
-      //await axios.post(`/api/cart`, {//key(productID), userId, cart[key].quantity})
+      const userId = res.data.id
+      Object.keys(cart).forEach(async key => {
+        await axios.post(`/api/cart`, {
+          productId: key,
+          userId,
+          quantity: cart[key].quantity
+        })
+      })
     }
   } catch (authErr) {
     return dispatch(getUser({error: authErr}))

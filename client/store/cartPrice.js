@@ -35,7 +35,6 @@ export const fetchTotalPrice = userId => {
     try {
       if (userId) {
         const {data} = await axios.get(`/api/cart/${userId}/price`)
-        console.log(data)
         dispatch(setTotalPrice(data))
       }
     } catch (error) {
@@ -68,7 +67,7 @@ export default function(state = initialState, action) {
       const newState = {...state}
       newState.total = action.price
       if (action.promo) {
-        newState.promo = action.promo
+        newState.promo = action.promo.code
       }
       return newState
     }
