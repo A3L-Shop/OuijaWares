@@ -10,7 +10,6 @@ class InventoryTable extends Component {
 
   render() {
     const products = this.props.products || []
-    console.log(products)
 
     return (
       <div>
