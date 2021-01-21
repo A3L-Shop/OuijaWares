@@ -1,5 +1,6 @@
 import Axios from 'axios'
 import {modifyError} from './error'
+import {fetchTotalPrice, clearPrice} from './cartPrice'
 
 // action type
 const POPULATE_CART = 'POPULATE_CART'
@@ -61,6 +62,7 @@ export const fetchUserCart = (user = {}) => {
         const {data} = await Axios.get(`/api/cart/${user.id}`)
         if (data.products) {
           dispatch(populateCart(data.products))
+          dispatch(fetchTotalPrice(user.id))
         }
       } else if (JSON.parse(window.localStorage.getItem('cart'))) {
         dispatch(
@@ -82,6 +84,7 @@ export const addToUserCart = (product, quantity = 1, user = {}) => {
           userId: user.id,
           quantity
         })
+        dispatch(fetchTotalPrice(user.id))
       }
       dispatch(addProductToCart(product, quantity))
     } catch (error) {
@@ -99,6 +102,7 @@ export const updateLineItem = (productId, newQuantity, user = {}) => {
           userId: user.id,
           quantity: newQuantity
         })
+        dispatch(fetchTotalPrice(user.id))
       }
       dispatch(updateAmount(productId, newQuantity))
     } catch (error) {
@@ -117,6 +121,7 @@ export const deleteLineItem = (productId, user = {}) => {
             userId: user.id
           }
         })
+        dispatch(fetchTotalPrice(user.id))
       }
       dispatch(deleteProductFromCart(productId))
     } catch (error) {
@@ -130,6 +135,7 @@ export const checkout = userId => {
     try {
       await Axios.put('/api/cart/checkout', {userId})
       dispatch(clearCart())
+      dispatch(clearPrice())
     } catch (error) {
       dispatch(modifyError(error))
     }
@@ -154,7 +160,7 @@ const initialState = {}
 export default function allProductsReducer(state = initialState, action) {
   switch (action.type) {
     case POPULATE_CART: {
-      const newState = {}
+      const newState = {...state}
       action.products.forEach(product => {
         newState[product.id] = {
           product: {

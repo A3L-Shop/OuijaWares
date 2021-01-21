@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import CartItem from './CartItem'
 import {checkout} from '../store/cart'
+import PromoCode from './PromoCode'
 
 export class Cart extends Component {
   constructor() {
@@ -10,8 +11,8 @@ export class Cart extends Component {
   }
 
   async handleClick() {
-    if (this.props.user.id) {
-      await this.props.loggedInCheckout(this.props.user.id)
+    if (this.props.userId) {
+      await this.props.loggedInCheckout(this.props.userId)
       this.props.history.push('/confirm')
     } else {
       this.props.history.push('/checkout')
@@ -32,8 +33,17 @@ export class Cart extends Component {
               return <CartItem item={items[id]} key={id} />
             })}
             <h3>{`Total Price: $${
-              totalPrice ? totalPrice.toFixed(2) : '0.00'
+              this.props.userId
+                ? this.props.cartPrice.total.toFixed(2)
+                : totalPrice
+                ? totalPrice.toFixed(2)
+                : '0.00'
             }`}</h3>
+            {this.props.userId ? (
+              <PromoCode />
+            ) : (
+              <div>Please log in or sign up to use promo codes!</div>
+            )}
             <button type="button" onClick={() => this.handleClick()}>
               Checkout
             </button>
@@ -49,7 +59,8 @@ export class Cart extends Component {
 const mapState = state => {
   return {
     cartItems: state.cart,
-    user: state.user
+    userId: state.user.id,
+    cartPrice: state.cartPrice
   }
 }
 

@@ -7,6 +7,7 @@ import cart from './cart'
 import singleProduct from './singleProduct'
 import error from './error'
 import allUsers from './allUsers'
+import cartPrice from './cartPrice'
 
 const reducer = combineReducers({
   user,
@@ -14,7 +15,8 @@ const reducer = combineReducers({
   singleProduct,
   cart,
   error,
-  allUsers
+  allUsers,
+  cartPrice
 })
 
 const middleware = composeWithDevTools(applyMiddleware(thunkMiddleware))

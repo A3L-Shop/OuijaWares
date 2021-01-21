@@ -75,3 +75,11 @@ User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
 })
+
+User.beforeValidate(user => {
+  if (!(user.password || user.googleId)) {
+    throw new Error(
+      'Invalid user type: Must either have password or oauth validation'
+    )
+  }
+})
