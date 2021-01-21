@@ -148,7 +148,7 @@ const initialState = {}
 export default function allProductsReducer(state = initialState, action) {
   switch (action.type) {
     case POPULATE_CART: {
-      const newState = {}
+      const newState = {...state}
       action.products.forEach(product => {
         newState[product.id] = {
           product: {

@@ -38,7 +38,8 @@ const LogInForm = props => {
 
 const mapLogin = state => {
   return {
-    error: state.user.error
+    error: state.user.error,
+    cart: state.cart
   }
 }
 
