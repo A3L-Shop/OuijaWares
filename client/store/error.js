@@ -35,7 +35,6 @@ export const modifyError = (error, customMessage) => {
       default:
         err.message = error.message
     }
-    console.log(err)
     dispatch(setError(err))
   }
 }

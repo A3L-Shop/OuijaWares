@@ -19,7 +19,6 @@ export class GuestCheckoutForm extends Component {
   async handleSubmit(evt) {
     evt.preventDefault()
     if (this.state.email.length) {
-      console.log(this.state.email)
       await this.props.guestCheckout(this.props.cart)
       this.props.history.push('/confirm')
     }

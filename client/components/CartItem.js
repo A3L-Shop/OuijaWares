@@ -24,7 +24,6 @@ export class CartItem extends Component {
       return
     }
     if (newQuantity > this.props.item.product.inventoryAmount) {
-      console.log('not enough inventory')
       return
     }
     await this.props.updateAmountInCart(productId, newQuantity, this.props.user)
@@ -35,7 +34,6 @@ export class CartItem extends Component {
 
   async handleRemove(productId) {
     await this.props.deleteFromCart(productId, this.props.user)
-    console.log('this item has been removed from your cart')
   }
 
   render() {

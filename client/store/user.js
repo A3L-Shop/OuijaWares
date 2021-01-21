@@ -30,6 +30,8 @@ export const me = () => async dispatch => {
     dispatch(getUser(data || defaultUser))
     if (data.id) {
       dispatch(fetchUserCart(data))
+    } else {
+      dispatch(fetchUserCart())
     }
   } catch (error) {
     dispatch(modifyError(error))
@@ -58,6 +60,7 @@ export const auth = (email, password, method) => async dispatch => {
   try {
     dispatch(getUser(res.data))
     dispatch(fetchUserCart(res.data))
+    window.localStorage.clear()
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     dispatch(modifyError(dispatchOrHistoryErr))
