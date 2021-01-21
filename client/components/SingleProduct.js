@@ -6,6 +6,9 @@ import {addToUserCart, updateLineItem} from '../store/cart'
 export class SingleProduct extends Component {
   constructor() {
     super()
+    this.state = {
+      addToCartMessage: ''
+    }
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
@@ -33,7 +36,17 @@ export class SingleProduct extends Component {
       } else {
         await this.props.addToCart(product, newQuantity, this.props.user)
       }
+      this.setState({
+        addToCartMessage: 'You just added 1 item in your cart'
+      })
+    } else {
+      this.setState({
+        addToCartMessage: 'There is not enough product in inventory'
+      })
     }
+    setTimeout(() => {
+      this.setState({addToCartMessage: ''})
+    }, 1000)
   }
 
   render() {
@@ -60,6 +73,9 @@ export class SingleProduct extends Component {
         <button type="button" onClick={() => this.handleClick(product)}>
           Add To Cart
         </button>
+        {this.state.addToCartMessage.length ? (
+          <div>{this.state.addToCartMessage}</div>
+        ) : null}
       </div>
     )
   }
