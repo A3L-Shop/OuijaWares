@@ -41,7 +41,7 @@ export class PromoCode extends Component {
   render() {
     return (
       <div>
-        {this.props.cartPrice.promo.code.length ? (
+        {this.props.cartPrice.promo.length ? (
           <div>
             The spirits have accepted your promo code! Enjoy your savings,
             mortal!
