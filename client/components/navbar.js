@@ -13,30 +13,29 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
         <img src="/qtghost.png" />
       </div>
       <nav>
-        {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
-            {isAdmin && <Link to="/users">Users</Link>}
-            {isAdmin && <Link to="/inventory">Inventory</Link>}
-            <a href="#" onClick={handleClick}>
-              Logout
-            </a>
-          </div>
-        ) : (
-          <div>
-            {/* The navbar will show these links before you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </div>
-        )}
         <div>
           <Link to="/products">All Products</Link>
+          {isAdmin && <Link to="/users">Users</Link>}
+          {isAdmin && <Link to="/inventory">Inventory</Link>}
         </div>
         <div>
-          <Link to="/cart">
-            Your Cart <CartQuantity />
-          </Link>
+          {isLoggedIn ? (
+            <span>
+              <a href="#" onClick={handleClick}>
+                Logout
+              </a>
+            </span>
+          ) : (
+            <span>
+              <Link to="/login">Login</Link>
+              <Link to="/signup">Sign Up</Link>
+            </span>
+          )}
+          <span>
+            <Link to="/cart">
+              Your Cart <CartQuantity />
+            </Link>
+          </span>
         </div>
       </nav>
       <hr />
