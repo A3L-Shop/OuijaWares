@@ -31,7 +31,9 @@ const LogInForm = props => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">Login with Google</a>
+      <a href="/auth/google">
+        <button>Login with Google</button>
+      </a>
     </div>
   )
 }
