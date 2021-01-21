@@ -84,7 +84,9 @@ export class SignupForm extends Component {
           )}
           {error && error.response && <div> {error.response.data} </div>}
         </form>
-        <a href="/auth/google">Sign Up with Google</a>
+        <a href="/auth/google">
+          <button>Sign Up With Google</button>
+        </a>
       </div>
     )
   }
