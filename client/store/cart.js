@@ -57,15 +57,12 @@ const populateLocalCart = cart => {
 export const fetchUserCart = (user = {}) => {
   return async dispatch => {
     try {
-      console.log('userID', user)
       if (user.id) {
         const {data} = await Axios.get(`/api/cart/${user.id}`)
         if (data.products) {
           dispatch(populateCart(data.products))
         }
-      } else {
-        console.log('here')
-        console.log(JSON.parse(window.localStorage.getItem('cart')))
+      } else if (JSON.parse(window.localStorage.getItem('cart'))) {
         dispatch(
           populateLocalCart(JSON.parse(window.localStorage.getItem('cart')))
         )

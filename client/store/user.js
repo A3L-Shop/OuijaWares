@@ -48,6 +48,8 @@ export const auth = (email, password, method) => async dispatch => {
   try {
     dispatch(getUser(res.data))
     dispatch(fetchUserCart(res.data))
+    console.log(window.localStorage)
+    window.localStorage.clear()
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     dispatch(modifyError(dispatchOrHistoryErr))
