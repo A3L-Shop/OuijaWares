@@ -6,7 +6,9 @@ let db
 if (process.env.DATABASE_URL) {
   db = new Sequelize(process.env.DATABASE_URL, {
     logging: false,
-    ssl: true
+    dialectOptions: {
+      ssl: true
+    }
   })
 } else {
   db = new Sequelize(`postgres://localhost:5432/${databaseName}`, {
