@@ -34,5 +34,12 @@ https://ouijawares.herokuapp.com/
 - windows: run `npm run build-client-watch` to generate your bundle, then run `npm start`
 
 - see the app on localhost:8080 :3
+## Tech stack
+- Node.js
+- Express
+- React
+- Redux
+- PostgreSQL
+- Sequelize
 
 ## Happy shopping!
